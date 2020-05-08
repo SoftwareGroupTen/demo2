@@ -1,0 +1,88 @@
+<!-- extends表明此页面继承自 baseReg.html 文件 -->
+{% extends "baseReg.html" %}
+{% load staticfiles %}
+
+<!-- 写入 baseReg.html 中定义的 title -->
+{% block title %}
+    登录页面
+{% endblock title %}
+
+<!-- 写入 baseReg.html 中定义的 content -->
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <br>
+            <form method="post" action=".">
+                {% csrf_token %}
+                <!-- 账号 -->
+                <div class="form-group col-md-4">
+                    <label for="id_username">用户名</label>
+                    <input type="text" class="form-control" name="username" maxlength="150" autofocus required id="id_username">
+                    <span class="helptext">必填。150个字符或者更少。包含字母，数字和仅有的@/./+/-/_符号。</span>
+                </div>
+                
+                {% if 注册表单.errors.username %}
+                    {{注册表单.errors.username}}
+                {% endif %}
+
+                <!-- 密码 -->
+                <div class="form-group col-md-4">
+                    <label for="id_password1">密码</label>
+                    <input type="password" class="form-control"name="password1" required id="id_password1">
+                    <span class="helptext">
+                        <ul>
+                            <li>你的密码不能与你的其他个人信息太相似。</li>
+                            <li>你的密码必须包含至少 8 个字符。</li>
+                            <li>你的密码不能是大家都爱用的常见密码。</li>
+                            <li>你的密码不能全部为数字。</li>
+                        </ul>
+                    </span>
+                </div>
+                
+                {{ 注册表单.errors.password1 }}
+
+                <!-- 确认密码 -->
+                <div class="form-group col-md-4">
+                    <label for="id_password2">密码确认</label>
+                    <input type="password" class="form-control"name="password2" required id="id_password2">
+                    <span class="helptext">为了校验，请输入与上面相同的密码。</span>
+                </div>
+                
+                
+                <!-- 邮箱 -->
+                <div class="form-group col-md-4">
+                    <label for="id_email">电子邮件地址:</label> 
+                    <input type="email" class="form-control" name="email" maxlength="254" id="id_email">
+                </div>
+                
+                <div class="form-group col-md-4">
+                    <label for="id_昵称">昵称:</label> 
+                    <input type="text" class="form-control" name="昵称" maxlength="50" id="id_昵称">
+                </div>
+                <!--
+                <div>
+                    <label for="id_昵称">昵称:</label> 
+                    <input type="text" name="昵称" maxlength="50" id="id_昵称">
+                </div>
+                -->
+                
+                    
+                <div>
+                    <label for = "identity">身份:</label>
+                    <input type = "radio" name = "身份" value = "学生">学生
+                    <input type = "radio" name = "身份" value = "助教">助教
+                    <input type = "radio" name = "身份" value = "老师">老师
+                <br>
+                </div>
+                
+                <!-- 提交按钮 -->
+                {{ 注册表单.验证码 }}
+            
+                {{ 注册表单.errors.验证码 }}
+                    <button type="submit" class="btn btn-primary">注册</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

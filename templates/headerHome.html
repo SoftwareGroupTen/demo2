@@ -1,0 +1,50 @@
+<!-- 定义导航栏 -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+  
+        <!-- 导航栏商标 -->
+        <a class="navbar-brand" href="#">Good Homework Online</a>
+
+        
+        
+
+        {% if user.is_authenticated %}
+
+            <li class="nav-item">
+                <a class="nav-link" style="color:white" href = "{% url 'Login:主页' %}">回到主页</a>
+                
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" style="color:white" href = "{% url 'Login:个人中心' %}">个人中心与信息维护</a>
+                
+            </li>
+
+
+            <!-- 如果用户已经登录，则显示用户名下拉框 -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" style="color:white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ user.username }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'Login:登出' %} ">退出登录</a>
+                </div>
+            </li>
+
+            
+            
+            
+        {% else %}
+            <!-- 导航入口 -->
+            <div>
+                <ul class="navbar-nav">
+                    <!-- 条目 -->
+                    <li class="nav-item">
+                        <a class="nav-link" href ="{% url 'Login:主页' %}">请先登录或注册</a>
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+  
+    </div>
+</nav>

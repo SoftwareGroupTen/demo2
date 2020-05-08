@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>添加课程</title>
+</head>
+<body>
+    <h1>主页</h1>
+    {% if user.is_authenticated %}
+        <a href = "{% url 'Login:登出' %}">登出</a>
+        <p>当前用户:{{ user.username }}</p>
+        <p>当前用户身份:{{ request.session.role }}</p>
+        <p>您正在添加课程</p>
+        <form action="" method="post" >
+            {% csrf_token %}
+            <p>课程编号:<input type="text" name="courseNum" ></p>
+            <p>课程名称:<input type="text" name="courseName" ></p>
+            <input type="submit" value="ok">
+        </form>
+    {% else %}
+        <a href = "{% url 'Login:登录' %}">登录</a>
+        <a href = "{% url 'Login:注册' %}">注册</a>
+    {% endif %}
+</body>
+</html>

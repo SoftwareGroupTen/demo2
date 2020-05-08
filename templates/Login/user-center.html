@@ -1,0 +1,36 @@
+<!-- extends表明此页面继承自 baseHome.html 文件 -->
+{% extends "baseHome.html" %}
+{% load staticfiles %}
+
+<!-- 写入 baseHome.html 中定义的 title -->
+{% block title %}
+    个人中心
+{% endblock title %}
+
+<!-- 写入 baseHome.html 中定义的 content -->
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            
+                <h1>个人中心</h1>
+                <div><br></div>
+                <!--<a href = "{% url 'Login:主页' %}">回到主页</a>-->
+                <a href="{% url 'Login:编辑个人信息' %}" class="btn btn-primary">编辑个人信息</a>
+                <a href="{% url 'Login:修改密码' %}" class="btn btn-primary">修改密码</a>
+                <!--<a href = "{% url 'Login:编辑个人信息' %}">编辑个人信息</a>-->
+                <!--<a href = "{% url 'Login:修改密码' %}">修改密码</a>-->
+                <!--<a href = "{% url 'Login:登出' %}">登出</a>-->
+                <div><br></div>
+                <div class="col-2 alert alert-success">用户名：{{ 用户.username }}</div>
+                <div class="col-3 alert alert-success">邮箱：{{ 用户.email }}</div>
+                <div class="col-2 alert alert-success">昵称：{{ 用户.普通会员表.昵称 }}</div>
+                <div class="col-2 alert alert-success">身份：{{ 用户.普通会员表.身份 }}</div>               
+                    
+                
+            
+        </div>
+    </div>
+</div>
+{% endblock content %}

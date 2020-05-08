@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加入课程</title>
+</head>
+<body>
+    <h1>主页</h1>
+    {% if user.is_authenticated %}
+        <a href = "{% url 'Login:登出' %}">登出</a>
+        <p>当前用户:{{ user.username }}</p>
+        <p>当前用户身份:{{ request.session.role }}</p>
+        <p>您正在加入课程</p>
+        <div class="row">
+            <div class="col-auto mr-auto">
+                <form class="form-inline" >
+                    <input type="text" 
+                        class="form-control mb-2 mr-sm-2" 
+                        name="search" 
+                        placeholder="搜索..." 
+                        required
+                    >
+                </form>
+        </div>
+        {% if search %}
+        {% if target %}
+            <h4><span style="color: red">"{{ search }}"</span>的搜索结果如下：</h4>
+            <ul>
+                {% for targetfile in target %}    
+                    <li>{{targetfile.id}}  {{targetfile.courseNum }}  {{ targetfile.teacherName }} 
+                        <form action='../joincourse/' method="GET">
+                            {% csrf_token %}
+                            
+                            <input type='hidden' name='ID' value={{targetfile.id}}>
+                            <input type='submit' value='加入' name ='join'>
+                        </form>
+                            
+                    </li>
+                {% endfor %}
+            </ul>
+            <hr>        
+        {% else %}
+            <h4>暂无<span style="color: red">"{{ search }}"</span>有关的文件。</h4>
+            <hr>
+        {% endif %}
+    {% endif %}
+    {% else %}
+        <a href = "{% url 'Login:登录' %}">登录</a>
+        <a href = "{% url 'Login:注册' %}">注册</a>
+    {% endif %}
+</body>
+</html>

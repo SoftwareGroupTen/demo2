@@ -1,0 +1,56 @@
+<!-- extends表明此页面继承自 baseReg.html 文件 -->
+{% extends "baseHome.html" %}
+{% load staticfiles %}
+
+<!-- 写入 baseHome.html 中定义的 title -->
+{% block title %}
+    作业详情
+{% endblock title %}
+
+<!-- 写入 baseHome.html 中定义的 content -->
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>作业详情页</h1>
+            <br>
+            {% if user.is_authenticated %}
+                <!--<a href = "{% url 'Login:登出' %}">登出</a>-->
+                <div class="col-3 alert alert-success">当前用户:{{ user.username }}</div>
+                    <p>
+                    <div class="col-3 alert alert-success">
+                        作业内容：{{ homework.Homework_text}}
+                    </div>
+
+                    <div class="col-3 alert alert-success">
+                        发布时间：{{ homework.Pub_time }}
+                    </div>
+
+                    <div class="col-3 alert alert-success">
+                        截止时间：{{ homework.deadline_date}} {{ homework.deadline_time}}
+                    </div>
+                    
+                    
+                    {% if request.session.role == '学生' %}
+                    <a href ="{% url 'Login:upload' homework.id %}">提交此作业</a>
+                    {% endif %}
+                    
+                    {% if request.session.role == '老师' %}
+                    <a href ="{% url 'HomeworkPublish:Homework_delete' homework.id %}">删除此作业</a>
+                    {% endif %}
+
+                    {% if request.session.role == '助教' %}
+                    <td><a href='../makecomments?hwID={{homework.id}}' class="btn btn-primary">批改</a></td>
+                
+                    {% endif %}
+                    </p>
+            
+                
+            {% else %}
+                <a href = "{% url 'Login:登录' %}">登录</a>
+                <a href = "{% url 'Login:注册' %}">注册</a>
+            {% endif %}
+        </div>
+    </div>  
+</div>
+{% endblock content %}

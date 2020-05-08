@@ -1,0 +1,37 @@
+<!-- extends表明此页面继承自 baseReg.html 文件 -->
+{% extends "baseHome.html" %}
+{% load staticfiles %}
+
+<!-- 写入 baseHome.html 中定义的 title -->
+{% block title %}
+    作业批改
+{% endblock title %}
+
+<!-- 写入 baseHome.html 中定义的 content -->
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <br>
+            <table>
+                <tr>
+                    <td class="alert alert-success">学生姓名</td>
+                    <td class="alert alert-success">文件</td>
+                    <td class="alert alert-success">操作</td>
+                    
+                </tr>
+
+
+                {% for homework in homeworklist %}
+                <tr>
+                    <td>{{homework.username}}</td>
+                    <td><a href="http://localhost:8000/files/{{ homework.headImg.name }}">{{homework.headImg.name }}</a></td>
+                    <td><a class="btn btn-primary" href='../../comment/postComment?hwId={{homework.id}}'>打分和添加评论</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>  
+</div>
+
+{% endblock content %}

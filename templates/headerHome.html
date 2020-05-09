@@ -4,19 +4,10 @@
   
         <!-- 导航栏商标 -->
         <a class="navbar-brand" href="#">Good Homework Online</a>
-
-        
-        
-
         {% if user.is_authenticated %}
 
             <li class="nav-item">
                 <a class="nav-link" style="color:white" href = "{% url 'Login:主页' %}">回到主页</a>
-                
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" style="color:white" href = "{% url 'Login:个人中心' %}">个人中心与信息维护</a>
                 
             </li>
 
@@ -27,6 +18,7 @@
                 {{ user.username }}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'Login:个人中心' %} ">个人中心</a>
                 <a class="dropdown-item" href="{% url 'Login:登出' %} ">退出登录</a>
                 </div>
             </li>

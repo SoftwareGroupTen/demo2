@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.db.models import Q
 from .forms import 自定义注册表单,自定义编辑表单,自定义登录表单
 from .models import 普通会员表
+from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from HomeworkPublish.models import Homework
 from upload.models import userfile
@@ -20,8 +21,8 @@ def 主页(request):
         hw=Homework.objects.all()
         uf=userfile.objects.all()
         us=普通会员表.objects.all()
-        nowu=普通会员表.objects.get(昵称 = request.user.username)
-        request.session['role']=nowu.身份
+        nowu=request.user
+        request.session['role']=nowu.普通会员表.身份
         context={'hw':hw,'uf':uf,'us':us,'mycourse':mycourse,'sc':sc,'ac':ac}
         return render(request, 'Login/home.html',context)
     else:
@@ -171,14 +172,25 @@ def addassistant(request,id):
 
 def homeworkdetail(request,id):
     homework = Homework.objects.get(id=id)
-    context = {'homework':homework}
+    time = timezone.now()
+    context = {'homework':homework,'time':time}
     return render(request,'Login/homeworkdetail.html',context)
 
 def makecomments(request):
-    allhomework = request.GET.get('hwID')
-    if allhomework:
-        homeworklist = userfile.objects.filter(homework_id=allhomework)
-        context = {'homeworklist':homeworklist}
+    hwID = request.GET.get('hwID')
+    course = Homework.objects.get(id=hwID)
+    studentlist = stucourse.objects.filter(thecourse_id=course.courseNum)
+    if hwID:
+        homeworklist = userfile.objects.filter(homework_id=hwID)
+        uncomplete = []
+        for name1 in studentlist:
+            for name2 in homeworklist:
+                if name1.studentName == name2.username:
+                    pass
+                else:
+                    uncomplete.append(name1)
+        
+        context = {'homeworklist':homeworklist,'uncomplete':uncomplete}
     else:
         context = {}
     return render(request,'Login/makecomment.html',context)

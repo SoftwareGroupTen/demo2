@@ -13,7 +13,11 @@
     <div class="row">
         <div class="col-12">
             <br>
-            <table>
+            <div class="panel-heading">
+                <h3 class="panel-title">已提交</h3>
+            </div>
+            <div class="panel-body">
+                <table>
                 <tr>
                     <td class="alert alert-success">学生姓名</td>
                     <td class="alert alert-success">文件</td>
@@ -29,9 +33,25 @@
                     <td><a class="btn btn-primary" href='../../comment/postComment?hwId={{homework.id}}'>打分和添加评论</a></td>
                 </tr>
                 {% endfor %}
-            </table>
+                </table>
+
+            </div>
+                
         </div>
     </div>  
+    <div class="panel-heading">
+        <h3 class="panel-title">未提交</h3>
+    </div>
+        <table>
+            <tr>
+                <td class="alert alert-success">学生姓名</td>    
+            </tr>
+            {% for student in uncomplete %}
+            <tr>
+                <td>{{ student.studentName }}</td>
+            </tr>
+            {% endfor %}
+        </table>
 </div>
 
 {% endblock content %}

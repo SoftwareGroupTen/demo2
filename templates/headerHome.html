@@ -6,12 +6,12 @@
         <a class="navbar-brand" href="#">Good Homework Online</a>
         {% if user.is_authenticated %}
 
-            <li class="nav-item">
-                <a class="nav-link" style="color:white" href = "{% url 'Login:主页' %}">回到主页</a>
-                
-            </li>
-
-
+            <div>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:white" href = "{% url 'Login:主页' %}">主页</a>
+                    </li>
+    
             <!-- 如果用户已经登录，则显示用户名下拉框 -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" style="color:white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -23,7 +23,7 @@
                 </div>
             </li>
 
-            
+            </div>
             
             
         {% else %}
@@ -32,10 +32,10 @@
                 <ul class="navbar-nav">
                     <!-- 条目 -->
                     <li class="nav-item">
-                        <a class="nav-link" href ="{% url 'Login:主页' %}">请先登录或注册</a>
+                        <a class="nav-link" href ="{% url 'Login:主页' %}"> <font size="2">请先登录或注册 </font> </a>
                     </li>
                 </ul>
-            </div>
+            </>
         {% endif %}
   
     </div>

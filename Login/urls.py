@@ -17,6 +17,7 @@ urlpatterns = [
     path('addassistant/<int:id>',views.addassistant, name = 'addassistant'),
     path('upload/<int:id>/',views.upload,name = 'upload'),
     path('user-center/', views.个人中心, name = '个人中心'),
+    path('persondetail/',views.persondetail,name='persondetail'),
     path('user-center/edit-profile', views.编辑个人信息, name = '编辑个人信息'),
     path('user-center/change-password', views.修改密码, name = '修改密码'),
 ]

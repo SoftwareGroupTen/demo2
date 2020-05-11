@@ -24,7 +24,7 @@
                 <div><br></div>
                 <div class="col-3 alert alert-warning">参课学生：</div>
                 {% for s in sc %}
-                    <p style="color:rgb(14, 15, 17)">{{s.studentName}}</p>
+                    <p style="color:rgb(14, 15, 17)" ><a href='../../Login/persondetail?user={{s.studentName}}'>{{s.studentName}}</a></p>
                 {% endfor %}
                 
                 <div><br></div>
@@ -33,7 +33,7 @@
                 <div class="container">
                     <div class="row mt-2">
                         {% for Homework in hw %}
-                        <div class="col-2 mb-4">
+                        
                             <!-- 卡片容器 -->
                             <div class="card h-100">
                                 
@@ -60,7 +60,7 @@
 
                                 </p>
                             
-                            </div>
+                            
                         </div>
                         {% endfor %}
                         

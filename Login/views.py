@@ -12,6 +12,7 @@ from upload.models import userfile
 from .models import course
 from .models import stucourse
 from .models import asscourse
+from django.contrib.auth.models import User
 
 def 主页(request):
     if request.user.is_authenticated:
@@ -194,3 +195,8 @@ def makecomments(request):
     else:
         context = {}
     return render(request,'Login/makecomment.html',context)
+
+def persondetail(request):
+    user = request.GET['user']
+    detail = User.objects.get(username = user )
+    return render(request,'Login/persondetail.html',{'detail':detail})

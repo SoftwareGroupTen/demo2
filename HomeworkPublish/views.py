@@ -3,7 +3,9 @@ from django.http import HttpResponse
 from .forms import HomeworkFrom
 from django.contrib.auth.models import User
 from .models import Homework 
-
+from notifications.signals import notify
+from Login.models import stucourse
+from Login.models import course
 # Create your views here.
 def Homework_list(request):
     homework = Homework.objects.all()
@@ -19,7 +21,20 @@ def Homework_Publish(request,id):
             homework.Homework_text = request.POST['Homework_text']
             homework.deadline_date = request.POST['deadline_date']
             homework.deadline_time = request.POST['deadline_time']
+            students = stucourse.objects.filter(thecourse_id = id)
+            c = course.objects.get(id=id)
             homework.save()
+            for student in students:
+                stu = User.objects.get(username = student.studentName)
+                notify.send(
+                    request.user,
+                    recipient=stu,
+                    verb='创建了作业',
+                    target=c,
+                    action_object=homework,
+                    
+                ) 
+            
             return HttpResponse("已发布，请返回刷新页面")
         else:
             return HttpResponse("作业内容有误，请重新填写。")

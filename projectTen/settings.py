@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'HomeworkPublish',
     'upload',
     'captcha',
-    'comment'
+    'comment',
+    'notifications',
+    'notice'
 ]
 
 MIDDLEWARE = [

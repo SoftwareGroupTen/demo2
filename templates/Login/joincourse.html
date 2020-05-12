@@ -29,9 +29,14 @@
                     >
                 </form>
             </div>
+        </div>
         {% if search %}
         {% if target %}
-            <h4><span style="color: red">"{{ search }}"</span>的搜索结果如下：</h4>
+            <div class="col-3 alert alert-success"><span style="color: red">"{{ search }}"</span>的搜索结果如下：</div>
+            <!--
+                <h4><span style="color: red">"{{ search }}"</span>的搜索结果如下：</h4>
+            -->
+            
             <ul>
                 {% for targetfile in target %}    
                     <li>{{targetfile.id}}  {{targetfile.courseNum }}  {{ targetfile.teacherName }} 
@@ -51,11 +56,11 @@
             <hr>
         {% endif %}
     {% endif %}
-
     {% else %}
         <a href = "{% url 'Login:登录' %}">登录</a>
         <a href = "{% url 'Login:注册' %}">注册</a>
     {% endif %}
+
         </div>
     </div>
 </div>

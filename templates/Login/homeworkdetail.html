@@ -30,13 +30,13 @@
                         截止时间：{{ homework.deadline_date}} {{ homework.deadline_time}}
                     </div>
                     
-                    {% if time <= homework.Pub_time %}
+                    {% if time > homework.deadline_date %}
                         {% if request.session.role == '学生' %}
                         <a href ="{% url 'Login:upload' homework.id %}">提交此作业</a>
                         {% endif %}
                     {% endif %}
 
-                    {% if time > homework.Pub_time %}
+                    {% if time > homework.deadline_date %}
                         {% if request.session.role == '学生' %}
                         <a>已超过截止时间</a>
                         {% endif %}

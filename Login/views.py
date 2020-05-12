@@ -13,6 +13,7 @@ from .models import course
 from .models import stucourse
 from .models import asscourse
 from django.contrib.auth.models import User
+from notifications.signals import notify
 
 def 主页(request):
     if request.user.is_authenticated:

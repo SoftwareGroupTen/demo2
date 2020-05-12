@@ -1,25 +1,44 @@
-<html>
-    <body>
-        <div>
+<!-- extends表明此页面继承自 baseReg.html 文件 -->
+{% extends "baseHome.html" %}
+{% load staticfiles %}
+
+<!-- 写入 baseHome.html 中定义的 title -->
+{% block title %}
+    作业发布
+{% endblock title %}
+
+<!-- 写入 baseHome.html 中定义的 content -->
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
             <form method="POST" action="">
                 {% csrf_token %}
-                <div class="form-group">
+                <!--作业内容-->
+                <div class="form-group col-md-12">
                     <label for="Homework_text">作业内容:</label>
                     <br/>
                     <textarea type="text" class="form-control" id="Homework_text" name="Homework_text" rows="10"></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="deadline_date">截止日期：</label>
+                
+                <div class="form-group col-md-4">
+                    <label for="deadline_date">截止日期:</label>
                     <br/>
-                    <input type="date" id="deadline_date" name="deadline_date">
+                    <input type="date" class="form-control" id="deadline_date" name="deadline_date">
                 </div>
-                <div class="form-group">
-                    <label for="deadline_time">截止时间：</label>
+                
+                <div class="form-group col-md-4">
+                    <label for="deadline_time">截止时间:</label>
                     <br/>
-                    <input type="time" id="deadline_time" name="deadline_time">
+                    <input type="time" class="form-control" id="deadline_time" name="deadline_time">
                 </div>
-                <button type="submit" class="btn btn-promary">完成</button>
+
+                <!--提交按钮-->
+                <div class="form-group col-md-4">
+                    <button type="submit" class="btn btn-primary">完成</button>
+                </div>
             </form>
         </div>
-    </body>
-</html>
+    </div>
+</div>      
+{% endblock content %}

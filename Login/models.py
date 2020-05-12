@@ -15,6 +15,8 @@ class course(models.Model):
     teacherName = models.CharField(max_length=10)
     courseNum = models.CharField(max_length=10)
     courseName = models.CharField(max_length=10)
+    def __str__(self):
+        return self.courseName
 class stucourse(models.Model):
     studentName = models.CharField(max_length=10)
     thecourse = models.ForeignKey('course',on_delete=models.CASCADE)

@@ -21,7 +21,7 @@ import projectTen.settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('Login/', include('Login.urls',namespace='Login')),
-    #path('',include('HomeworkPublish.urls',namespace='HomeworkPublish')),
+    path('',include('HomeworkPublish.urls',namespace='HomeworkPublish')),
     path('captcha/', include('captcha.urls')),
     path('comment/', include('comment.urls', namespace='comment')), #评论
     

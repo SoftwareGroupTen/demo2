@@ -20,7 +20,10 @@
                 <div class="col-8 alert alert-success">当前用户:{{ user.username }}当前用户身份:{{ request.session.role }}</div>
               
                 <div class="col-8 alert alert-success">课程名称：{{mycourse.courseName}} 授课教师：{{mycourse.teacherName}}</div>
-  
+                {% if request.session.role == '老师' %}
+                    <a href="{% url 'HomeworkPublish:Homework_Publish' mycourse.id  %}" class="btn btn-primary">发布作业</a>
+                    <a href="{% url 'Login:addassistant' mycourse.id  %}" class="btn btn-primary">为此课程添加助教</a>            
+                {% endif %}
                 <div><br></div>
                 <div class="col-3 alert alert-warning">参课学生：</div>
                 {% for s in sc %}
@@ -47,17 +50,16 @@
                                 <!-- 注脚 -->
                                 <div class="card-footer">
                                     <a href ="{% url 'Login:homeworkdetail' Homework.id %}" class="btn btn-primary">详情</a>
+                                    {% if request.session.role == '老师' %}
+                                        <a href ="{% url 'HomeworkPublish:Homework_delete' Homework.id %}" class="btn btn-primary">删除此作业</a>
+                                    {% endif %}
+            
                                 </div>
-                                <p>
-                                
+                                <p>                                
                                 
                                 {% if request.session.role == '学生' %}
                                 <a href ="{% url 'Login:upload' Homework.id %}">提交此作业</a>
                                 {% endif %}
-                                {% if request.session.role == '老师' %}
-                                <a href ="{% url 'HomeworkPublish:Homework_delete' Homework.id %}">删除此作业</a>
-                                {% endif %}
-
                                 </p>
                             
                             
@@ -86,11 +88,6 @@
                 -->
                 
 
-                {% if request.session.role == '老师' %}
-                    <a href="{% url 'HomeworkPublish:Homework_Publish' mycourse.id  %}">发布作业</a>
-                    <a href="{% url 'Login:addassistant' mycourse.id  %}">为此课程添加助教</a>            
-                {% endif %}
-            
                 
             {% else %}
                 <a href = "{% url 'Login:登录' %}">登录</a>

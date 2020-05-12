@@ -32,52 +32,112 @@ background-attachment: fixed;">
                 <p><a style="color:white" href ="{% url 'Login:addcourse' %}">添加课程</a></p>
                 <p style="color:white">我的课程:</p>
                 <ul>
-                {% for course in mycourse %}
-                
-                <!-- 课程内容 -->
-                <div class="col-4 mb-4">
-                    <!-- 卡片容器 -->
+                    {% for c in mycourse %}
+                    <div class="col-4 mb-4">
+                        <!-- 卡片容器 -->
                         <div class="card h-100">
-                            
+                        <div class="card-body">
                             <!-- 标题 -->
-                            <h4 class="card-header">{{ course.courseName }}</h4>
-                            
+                            <h4 class="mt-0">
+                                <a href="{% url 'Login:coursedetail' c.id %}"
+                                   style="font-weight: bold; color: black;"
+                                   class="hvr-forward no-underline"
+                                >
+                                     {{ c.courseName }}
+                                </a>
+                            </h4>
 
-                            <!-- 注脚 -->
-                            <div class="card-footer">
-                                <a href="{% url 'Login:coursedetail' course.id %}" class="btn btn-primary">课程详情</a>
+                            <!-- 文章标题的栏目 -->
+                            <div class="mb-2 ">
+                                
+                                    <a href="{% url 'Login:coursedetail' c.id %}"
+                                       role="button"
+                                       class="
+                                    btn
+                                    btn-sm
+                                    hvr-pop
+                                    
+                                    btn-outline-success
+                                    
+                                    "
+                                    >
+                                        详情
+                                    </a>
+                                
+
+                                <!-- 标签 -->
+                                
+                                    <a class="badge badge-pill badge-light hvr-float-shadow"
+                                       href='../../Login/persondetail?user={{ cteacherName }}'
+                                       style="color: grey;"
+                                    >
+                                    {{ c.teacherName }}
+                                        </a>
+                                
+                                </div>
                             </div>
                         </div>
                     </div>
-            
-
-                {% endfor %}
+                
+                {% endfor %} 
                 </ul>
             {% endif %}
             
             {% if request.session.role == '学生' %}
                 <p><a style="color:white" href ="{% url 'Login:joincourse' %}">寻找课程</a></p>
                 <p style="color:white">我的课程:</p>
-                <ul> <div class="container">
-                    {% for c in sc %}
-                        <!-- 课程内容 -->
-                        <div class="col-4 mb-4">
-                            <!-- 卡片容器 -->
-                                <div class="card h-100">
-                                    
+                        
+                            {% for c in sc %}
+                            <div class="col-4 mb-4">
+                                <!-- 卡片容器 -->
+                                    <div class="card h-100">
+                                <div class="card-body">
                                     <!-- 标题 -->
-                                    <h4 class="card-header">{{ c.thecourse.courseName }}</h4>
-                                    
-
-                                    <!-- 注脚 -->
-                                    <div class="card-footer">
-                                        <a href="{% url 'Login:coursedetail' c.thecourse.id %}" class="btn btn-primary">课程详情</a>
+                                    <h4 class="mt-0">
+                                        <a href="{% url 'Login:coursedetail' c.thecourse.id %}"
+                                           style="font-weight: bold; color: black;"
+                                           class="hvr-forward no-underline"
+                                        >
+                                             {{ c.thecourse.courseName }}
+                                        </a>
+                                    </h4>
+        
+                                    <!-- 文章标题的栏目 -->
+                                    <div class="mb-2 ">
+                                        
+                                            <a href="{% url 'Login:coursedetail' c.thecourse.id %}"
+                                               role="button"
+                                               class="
+                                            btn
+                                            btn-sm
+                                            hvr-pop
+                                            
+                                            btn-outline-success
+                                            
+                                            "
+                                            >
+                                                详情
+                                            </a>
+                                        
+        
+                                        <!-- 标签 -->
+                                        
+                                            <a class="badge badge-pill badge-light hvr-float-shadow"
+                                               href='../../Login/persondetail?user={{ c.thecourse.teacherName }}'
+                                               style="color: grey;"
+                                            >
+                                            {{ c.thecourse.teacherName }}
+                                                </a>
+                                        
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        {% endfor %}
-                </div>
-                </ul>
+                        
+                        {% endfor %} 
+                        
+                        
+                
             {% endif %}
             
             {% if request.session.role == '助教' %}
@@ -86,29 +146,57 @@ background-attachment: fixed;">
                 <!-- 定义放置文章标题的div容器 -->
                 <div class="container">
                     <div class="row mt-2">
-                        
                         {% for c in ac %}
-                        <!-- 课程内容 -->
-                        <div class="col-2 mb-4">
+                        <div class="col-4 mb-4">
                             <!-- 卡片容器 -->
                                 <div class="card h-100">
+                            <div class="card-body">
+                                <!-- 标题 -->
+                                <h4 class="mt-0">
+                                    <a href="{% url 'Login:coursedetail' c.thecourse.id %}"
+                                       style="font-weight: bold; color: black;"
+                                       class="hvr-forward no-underline"
+                                    >
+                                         {{ c.thecourse.courseName }}
+                                    </a>
+                                </h4>
+    
+                                <!-- 文章标题的栏目 -->
+                                <div class="mb-2 ">
                                     
-                                    <!-- 标题 -->
-                                    <h4 class="card-header">{{ c.thecourse.courseName }}</h4>
+                                        <a href="{% url 'Login:coursedetail' c.thecourse.id %}"
+                                           role="button"
+                                           class="
+                                        btn
+                                        btn-sm
+                                        hvr-pop
+                                        
+                                        btn-outline-success
+                                        
+                                        "
+                                        >
+                                            详情
+                                        </a>
                                     
-
-                                    <!-- 注脚 -->
-                                    <div class="card-footer">
-                                        <a href="{% url 'Login:coursedetail' c.thecourse.id %}" class="btn btn-primary">课程详情</a>
+    
+                                    <!-- 标签 -->
+                                    
+                                        <a class="badge badge-pill badge-light hvr-float-shadow"
+                                           href='../../Login/persondetail?user={{ c.thecourse.teacherName }}'
+                                           style="color: grey;"
+                                        >
+                                        {{ c.thecourse.teacherName }}
+                                            </a>
+                                    
                                     </div>
                                 </div>
                             </div>
-                        {% endfor %}
-
+                        </div>
+                    
+                    {% endfor %} 
                     </div>
                 </div>
-                
-                
+            
                 <!--
                 <ul>
                     {% for c in ac %}

@@ -1,26 +1,49 @@
-<!DOCTYPE html>
-<html lang="zh-hans">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>添加课程</title>
-</head>
-<body>
-    <h1>主页</h1>
-    {% if user.is_authenticated %}
-        <a href = "{% url 'Login:登出' %}">登出</a>
-        <p>当前用户:{{ user.username }}</p>
-        <p>当前用户身份:{{ request.session.role }}</p>
-        <p>您正在添加课程</p>
-        <form action="" method="post" >
-            {% csrf_token %}
-            <p>课程编号:<input type="text" name="courseNum" ></p>
-            <p>课程名称:<input type="text" name="courseName" ></p>
-            <input type="submit" value="ok">
-        </form>
-    {% else %}
-        <a href = "{% url 'Login:登录' %}">登录</a>
-        <a href = "{% url 'Login:注册' %}">注册</a>
-    {% endif %}
-</body>
-</html>
+<!-- extends表明此页面继承自 baseReg.html 文件 -->
+{% extends "baseHome.html" %}
+{% load staticfiles %}
+
+<!-- 写入 baseHome.html 中定义的 title -->
+{% block title %}
+    添加课程
+{% endblock title %}
+
+<!-- 写入 baseHome.html 中定义的 content -->
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>添加课程</h1>
+            {% if user.is_authenticated %}
+                <!--<a href = "{% url 'Login:登出' %}">登出</a>-->
+                <div class="col-2 alert alert-success">当前用户:{{ user.username }}</div>
+                <div class="col-2 alert alert-success">当前用户身份:{{ request.session.role }}</div>
+                <div class="col-3 alert alert-warning">您正在添加课程……</div>
+                <form action="" method="post" >
+                    {% csrf_token %}
+                    <div class="form-group col-md-4">
+                        <label for="courseNum">课程编号</label>
+                        <input type="text" class="form-control" name="courseNum">
+                    </div>
+                    <!--
+                    <p>课程编号:<input type="text" name="courseNum" ></p>
+                    <p>课程名称:<input type="text" name="courseName" ></p>
+                    -->
+                    
+                    <div class="form-group col-md-4">
+                        <label for="courseName">课程名字</label>
+                        <input type="text" class="form-control" name="courseName">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="ok"></label>
+                        <input type="submit" value="ok" class="btn btn-primary">
+                    </div>
+                </form>
+            {% else %}
+                <a href = "{% url 'Login:登录' %}">登录</a>
+                <a href = "{% url 'Login:注册' %}">注册</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

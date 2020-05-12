@@ -1,26 +1,45 @@
-<!DOCTYPE html>
-<html lang="zh-hans">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>添加助教</title>
-</head>
-<body>
-    <h1>主页</h1>
+<!-- extends表明此页面继承自 baseReg.html 文件 -->
+{% extends "baseHome.html" %}
+{% load staticfiles %}
+
+<!-- 写入 baseHome.html 中定义的 title -->
+{% block title %}
+    添加助教
+{% endblock title %}
+
+<!-- 写入 baseHome.html 中定义的 content -->
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+    <h1>添加助教</h1>
     {% if user.is_authenticated %}
-        <a href = "{% url 'Login:登出' %}">登出</a>
-        <p>当前用户:{{ user.username }}</p>
-        <p>当前用户身份:{{ request.session.role }}</p>
-        <p>当前课程：</p>
-        <p>您为此课程添加助教</p>
+        <div class="col-2 alert alert-success">当前用户:{{ user.username }}</div>
+        <div class="col-2 alert alert-success">当前用户身份:{{ request.session.role }}</div>
+        <div class="col-2 alert alert-success">当前课程：</div>
+        <div class="col-3 alert alert-warning">您正在为此课程添加助教……</div>
+        
+        
         <form action="" method="post" >
             {% csrf_token %}
+            <div class="form-group col-md-4">
+                <label for="assistantName">助教名称：</label>
+                <input type="text" class="form-control" name="assistantName">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="ok"></label>
+                <input type="submit" value="ok" class="btn btn-primary">
+            </div>
+            <!--
             <p>助教名称:<input type="text" name="assistantName" ></p>
             <input type="submit" value="ok">
+            -->
         </form>
     {% else %}
         <a href = "{% url 'Login:登录' %}">登录</a>
         <a href = "{% url 'Login:注册' %}">注册</a>
     {% endif %}
-</body>
-</html>
+        </div>
+    </div>
+</div>
+{% endblock content %}

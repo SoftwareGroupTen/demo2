@@ -1,0 +1,43 @@
+<!-- extends表明此页面继承自 baseReg.html 文件 -->
+{% extends "baseHome.html" %}
+{% load staticfiles %}
+
+<!-- 写入 baseHome.html 中定义的 title -->
+{% block title %}
+    显示评分及评论
+{% endblock title %}
+
+<!-- 写入 baseHome.html 中定义的 content -->
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <br>
+            <div class="panel-heading">
+                <h3 class="panel-title">全部评分及评论</h3>
+            </div>
+            <div class="panel-body">
+                <table>
+                    <tr>
+                        <td class="alert alert-success">评分</td>
+                        <td class="alert alert-success">评论</td>
+                        <td class="alert alert-success">发布时间</td>
+                        <td class="alert alert-success">操作</td>
+                    </tr>
+                    {% for co in comment %}
+                    <tr>
+                        <td>{{co.point}}</td>
+                        <td>{{co.body}}</td>
+                        <td>{{co.created}}</td>
+                        <td><a class="btn btn-primary" href='../../comment/deleteComment?commentId={{co.id}}&fileId={{co.userfile_id}}&hwId={{hwId}}'>删除评论</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <br>
+                <a class="btn btn-primary" href='../../Login/makecomments?hwID={{hwId}}'> 返回作业列表 </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

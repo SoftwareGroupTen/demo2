@@ -21,8 +21,8 @@
                 <tr>
                     <td class="alert alert-success">学生姓名</td>
                     <td class="alert alert-success">文件</td>
-                    <td class="alert alert-success">操作</td>
-                    
+                    <td class="alert alert-success">操作1</td>
+                    <td class="alert alert-success">操作2</td>
                 </tr>
 
 
@@ -30,7 +30,8 @@
                 <tr>
                     <td>{{homework.username}}</td>
                     <td><a href="http://localhost:8000/files/{{ homework.headImg.name }}">{{homework.headImg.name }}</a></td>
-                    <td><a class="btn btn-primary" href='../../comment/postComment?hwId={{homework.id}}'>打分和添加评论</a></td>
+                    <td><a class="btn btn-primary" href='../../comment/showComment?hwId={{homework.homework_id}}&fileId={{homework.id}}'>查看评分和评论</a></td>
+                    <td><a class="btn btn-primary" href='../../comment/postComment?hwId={{homework.homework_id}}&fileId={{homework.id}}'>打分和添加评论</a></td>
                 </tr>
                 {% endfor %}
                 </table>

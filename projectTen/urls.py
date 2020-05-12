@@ -23,6 +23,6 @@ urlpatterns = [
     path('Login/', include('Login.urls',namespace='Login')),
     path('',include('HomeworkPublish.urls',namespace='HomeworkPublish')),
     path('captcha/', include('captcha.urls')),
-    path('comment/', include('comment.urls', namespace='comment')), #评论
+    path('comment/', include('comment.urls', namespace='comment')),
     
 ]+ static (projectTen.settings.MEDIA_URL, document_root=projectTen.settings.MEDIA_ROOT)

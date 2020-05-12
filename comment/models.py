@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from upload.models import userfile
 
 class Comment(models.Model):
-    homework = models.ForeignKey(
+    userfile = models.ForeignKey(
         userfile,
         on_delete=models.CASCADE,
         related_name='comments'

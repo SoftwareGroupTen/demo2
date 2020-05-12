@@ -33,19 +33,50 @@ background-attachment: fixed;">
                 <p style="color:white">我的课程:</p>
                 <ul>
                 {% for course in mycourse %}
-                    <li><a style="color:greenyellow" href ="{% url 'Login:coursedetail' course.id %}">{{ course.courseName }}</a>  <a  href ="{% url 'Login:coursedelete' course.id %}">删除此课程</a></li>
+                
+                <!-- 课程内容 -->
+                <div class="col-4 mb-4">
+                    <!-- 卡片容器 -->
+                        <div class="card h-100">
+                            
+                            <!-- 标题 -->
+                            <h4 class="card-header">{{ course.courseName }}</h4>
+                            
+
+                            <!-- 注脚 -->
+                            <div class="card-footer">
+                                <a href="{% url 'Login:coursedetail' course.id %}" class="btn btn-primary">课程详情</a>
+                            </div>
+                        </div>
+                    </div>
+            
 
                 {% endfor %}
                 </ul>
             {% endif %}
             
             {% if request.session.role == '学生' %}
-                <p><a style="color:white" href ="{% url 'Login:joincourse' %}">加入课程</a></p>
+                <p><a style="color:white" href ="{% url 'Login:joincourse' %}">寻找课程</a></p>
                 <p style="color:white">我的课程:</p>
-                <ul>
+                <ul> <div class="container">
                     {% for c in sc %}
-                    <li><a style="color:greenyellow" href ="{% url 'Login:coursedetail' c.thecourse.id %}">{{ c.thecourse.courseName }}</a></li>
-                    {% endfor %}
+                        <!-- 课程内容 -->
+                        <div class="col-4 mb-4">
+                            <!-- 卡片容器 -->
+                                <div class="card h-100">
+                                    
+                                    <!-- 标题 -->
+                                    <h4 class="card-header">{{ c.thecourse.courseName }}</h4>
+                                    
+
+                                    <!-- 注脚 -->
+                                    <div class="card-footer">
+                                        <a href="{% url 'Login:coursedetail' c.thecourse.id %}" class="btn btn-primary">课程详情</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                </div>
                 </ul>
             {% endif %}
             

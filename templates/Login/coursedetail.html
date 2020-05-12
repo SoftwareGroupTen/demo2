@@ -53,13 +53,13 @@
                                     {% if request.session.role == '老师' %}
                                         <a href ="{% url 'HomeworkPublish:Homework_delete' Homework.id %}" class="btn btn-primary">删除此作业</a>
                                     {% endif %}
-            
+                                    {% if request.session.role == '学生' %}
+                                        <a href ="{% url 'Login:upload' Homework.id %}" class="btn btn-primary">提交此作业</a>
+                                    {% endif %}
                                 </div>
                                 <p>                                
                                 
-                                {% if request.session.role == '学生' %}
-                                <a href ="{% url 'Login:upload' Homework.id %}">提交此作业</a>
-                                {% endif %}
+                                
                                 </p>
                             
                             

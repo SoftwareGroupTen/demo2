@@ -12,6 +12,10 @@
     <title>{% block title %}{% endblock %}</title>
     <!-- 引入bootstrap的css文件 -->
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+
+    {% block head %}{% endblock head %}
+
+    {% block style %}{% endblock style %}
 </head>
 
 <body>

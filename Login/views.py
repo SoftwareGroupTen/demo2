@@ -28,24 +28,23 @@ def 主页(request):
         context={'hw':hw,'uf':uf,'us':us,'mycourse':mycourse,'sc':sc,'ac':ac}
         return render(request, 'Login/home.html',context)
     else:
-        return render(request,'Login/home.html')
+        if request.method == 'POST':
+            登录表单 = 自定义登录表单(data= request.POST)
+            if 登录表单.is_valid():
+
+                用户 = authenticate(request,username=登录表单.cleaned_data['username'] ,password=登录表单.cleaned_data['password'] )
+
+                login(request,用户)
+                return redirect('Login:主页')
+        else:
+            登录表单 = 自定义登录表单()
+
+    内容 = {'登录表单':登录表单, '用户':request.user}
+    return render(request, 'Login/home.html',内容)
 
 
 
-def 登录(require):
-    if require.method == 'POST':
-        登录表单 = 自定义登录表单(data= require.POST)
-        if 登录表单.is_valid():
 
-            用户 = authenticate(require,username=登录表单.cleaned_data['username'] ,password=登录表单.cleaned_data['password'] )
-
-            login(require,用户)
-            return redirect('Login:主页')
-    else:
-        登录表单 = 自定义登录表单()
-
-    内容 = {'登录表单':登录表单, '用户':require.user}
-    return render(require, 'Login/login.html',内容)
 
 
 def 登出(request):

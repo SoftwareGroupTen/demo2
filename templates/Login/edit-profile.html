@@ -13,25 +13,25 @@
     <div class="row">
         <div class="col-12">
             <h1>编辑信息</h1>
-            <!--<a class="nav-link" href = "{% url 'Login:主页' %}">回到主页</a>-->
-            <!--<a class="nav-link" href="{% url 'Login:个人中心' %}">个人中心</a>-->
-            <!--<a class="nav-link" href = "{% url 'Login:编辑个人信息' %}">编辑个人信息</a>-->
-            <a href="{% url 'Login:修改密码' %}" class="btn btn-primary">修改密码</a>
-            <!--<a class="nav-link" href = "{% url 'Login:登出' %}">登出</a>-->
-                {{ 编辑表单.errors }}
+            <!--<a class="nav-link" href = "{% url 'Login:PAGE' %}">回到主页</a>-->
+            <!--<a class="nav-link" href="{% url 'Login:usercenter' %}">个人中心</a>-->
+            <!--<a class="nav-link" href = "{% url 'Login:editprofile' %}">编辑个人信息</a>-->
+            <a href="{% url 'Login:changepassword' %}" class="btn btn-primary">修改密码</a>
+            <!--<a class="nav-link" href = "{% url 'Login:logOut' %}">登出</a>-->
+                {{ editprofileform.errors }}
             <form action="" method = "POST">
                 {% csrf_token %}
                 
                 <!-- 用户名 -->
                 <div class="form-group col-md-4">
                     <label for="id_username">用户名</label>
-                    <input type="text" class="form-control" name="username" value="{{用户.username}}" maxlength="150" required id="id_username">
+                    <input type="text" class="form-control" name="username" value="{{USER.username}}" maxlength="150" required id="id_username">
                     <span class="helptext">必填。150个字符或者更少。包含字母，数字和仅有的@/./+/-/_符号。</span>
                 </div>
                 <!--
                 <p>
                     <label for="id_username">用户名：</label>
-                    <input type="text" name="username" value="{{用户.username}}" maxlength="150" required id="id_username" />
+                    <input type="text" name="username" value="{{USER.username}}" maxlength="150" required id="id_username" />
                     <span class="helptext">必填。150个字符或者更少。包含字母，数字和仅有的@/./+/-/_符号。</span>
                 </p>
                 -->
@@ -39,31 +39,31 @@
                 <!-- 邮箱 -->
                 <div class="form-group col-md-4">
                     <label for="id_email">电子邮件地址:</label> 
-                    <input type="email" class="form-control" name="email" value="{{用户.email}}" maxlength="254" id="id_email">
+                    <input type="email" class="form-control" name="email" value="{{USER.email}}" maxlength="254" id="id_email">
                 </div>
                 <!--
                 <p>
                     <label for="id_email">电子邮件地址:</label>
-                    <input type="email" name="email" value="{{用户.email}}" maxlength="254" id="id_email">
+                    <input type="email" name="email" value="{{USER.email}}" maxlength="254" id="id_email">
                 </p>
                 -->
 
                 <div class="form-group col-md-4">
-                    <label for="id_昵称">昵称:</label> 
-                    <input type="text" class="form-control" name="昵称" maxlength="50" id="id_昵称" value="{{用户.普通会员表.昵称}}" />
+                    <label for="id_nickname">昵称:</label> 
+                    <input type="text" class="form-control" name="nickname" maxlength="50" id="id_nickname" value="{{USER.normaluserform.nickname}}" />
                 </div>
                 <!--
                 <p>
-                    <label for="id_昵称">昵称:</label> 
-                    <input type="text" name="昵称" maxlength="50" id="id_昵称" value="{{用户.普通会员表.昵称}}" />
+                    <label for="id_nickname">昵称:</label> 
+                    <input type="text" name="nickname" maxlength="50" id="id_nickname" value="{{USER.normaluserform.nickname}}" />
                 </p>
                 -->
                 
                 <div>
-                    <label for="id_身份">身份:</label> 
-                    <input type = "radio" name = "身份" value = "学生">学生
-                    <input type = "radio" name = "身份" value = "助教">助教
-                    <input type = "radio" name = "身份" value = "老师">老师
+                    <label for="id_Identity">身份:</label> 
+                    <input type = "radio" name = "Identity" value = "学生">学生
+                    <input type = "radio" name = "Identity" value = "助教">助教
+                    <input type = "radio" name = "Identity" value = "老师">老师
                 </div>
                 <button type = "submit" class="btn btn-primary">提交</button>
             </form>

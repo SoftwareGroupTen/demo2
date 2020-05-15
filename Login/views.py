@@ -3,8 +3,8 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm, PasswordChangeForm
 from django.http import HttpResponse
 from django.db.models import Q
-from .forms import 自定义注册表单,自定义编辑表单,自定义登录表单
-from .models import 普通会员表
+from .forms import customizedregisterForm,customizededitForm,customizedloginForm
+from .models import normaluserform
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from HomeworkPublish.models import Homework
@@ -15,98 +15,98 @@ from .models import asscourse
 from django.contrib.auth.models import User
 from notifications.signals import notify
 
-def 主页(request):
+def PAGE(request):
     if request.user.is_authenticated:
         mycourse=course.objects.filter(teacherName = request.user.username)
         sc = stucourse.objects.filter(studentName = request.user.username)
         ac = asscourse.objects.filter(assistantName = request.user.username)
         hw=Homework.objects.all()
         uf=userfile.objects.all()
-        us=普通会员表.objects.all()
+        us=normaluserform.objects.all()
         nowu=request.user
-        request.session['role']=nowu.普通会员表.身份
+        request.session['role']=nowu.normaluserform.Identity
         context={'hw':hw,'uf':uf,'us':us,'mycourse':mycourse,'sc':sc,'ac':ac}
         return render(request, 'Login/home.html',context)
     else:
         if request.method == 'POST':
-            登录表单 = 自定义登录表单(data= request.POST)
-            if 登录表单.is_valid():
+            loginform = customizedloginForm(data= request.POST)
+            if loginform.is_valid():
 
-                用户 = authenticate(request,username=登录表单.cleaned_data['username'] ,password=登录表单.cleaned_data['password'] )
+                USER = authenticate(request,username=loginform.cleaned_data['username'] ,password=loginform.cleaned_data['password'] )
 
-                login(request,用户)
-                return redirect('Login:主页')
+                login(request,USER)
+                return redirect('Login:PAGE')
         else:
-            登录表单 = 自定义登录表单()
+            loginform = customizedloginForm()
 
-    内容 = {'登录表单':登录表单, '用户':request.user}
-    return render(request, 'Login/home.html',内容)
-
-
+    Content = {'loginform':loginform, 'USER':request.user}
+    return render(request, 'Login/home.html',Content)
 
 
 
 
-def 登出(request):
+
+
+def logOut(request):
     try:
         del request.session['role']
     except KeyError:
         pass
     logout(request)
-    return redirect('Login:主页')
+    return redirect('Login:PAGE')
 
 
-def 注册(require):
+def Register(require):
     if require.method == 'POST':
-        注册表单 = 自定义注册表单(require.POST)
-        if 注册表单.is_valid():
-            注册表单.save()
-            用户 = authenticate(username=注册表单.cleaned_data['username'] ,password=注册表单.cleaned_data['password1'] )
-            用户.email = 注册表单.cleaned_data['email']
-            普通会员表(用户=用户,昵称=注册表单.cleaned_data['昵称'],身份=注册表单.cleaned_data['身份']).save()
-            login(require,用户)
-            return redirect('Login:主页')
+        registerform = customizedregisterForm(require.POST)
+        if registerform.is_valid():
+            registerform.save()
+            USER = authenticate(username=registerform.cleaned_data['username'] ,password=registerform.cleaned_data['password1'] )
+            USER.email = registerform.cleaned_data['email']
+            normaluserform(USER=USER,nickname=registerform.cleaned_data['nickname'],Identity=registerform.cleaned_data['Identity']).save()
+            login(require,USER)
+            return redirect('Login:PAGE')
     else:
-        注册表单 = 自定义注册表单()
+        registerform = customizedregisterForm()
 
-    内容 = {'注册表单':注册表单}
-    return render(require, 'Login/register.html', 内容)
+    Content = {'registerform':registerform}
+    return render(require, 'Login/register.html', Content)
 
-@login_required(login_url='Login:登录')
-def 个人中心(require):
-    内容 = {'用户': require.user}
-    return render(require, 'Login/user-center.html', 内容)
+@login_required(login_url='Login:logIn')
+def usercenter(require):
+    Content = {'USER': require.user}
+    return render(require, 'Login/user-center.html', Content)
 
-@login_required(login_url='Login:登录')
-def 编辑个人信息(require):
+@login_required(login_url='Login:logIn')
+def editprofile(require):
     if require.method == 'POST':
-        编辑表单 = 自定义编辑表单(require.POST,instance = require.user)
-        if 编辑表单.is_valid():
-            编辑表单.save()
-            require.user.普通会员表.昵称 = 编辑表单.cleaned_data['昵称']
-            require.user.普通会员表.身份 = 编辑表单.cleaned_data['身份']
-            require.user.普通会员表.save()
-            return redirect('Login:个人中心')
+        editprofileform = customizededitForm(require.POST,instance = require.user)
+        if editprofileform.is_valid():
+            editprofileform.save()
+            require.user.normaluserform.nickname = editprofileform.cleaned_data['nickname']
+            require.user.normaluserform.Identity = editprofileform.cleaned_data['Identity']
+            require.user.normaluserform.save()
+            return redirect('Login:usercenter')
     else:
-        编辑表单 = 自定义编辑表单(instance = require.user)
+        editprofileform = customizededitForm(instance = require.user)
 
-    内容 = {'编辑表单':编辑表单, '用户':require.user}
-    return render(require, 'Login/edit-profile.html', 内容)
+    Content = {'editprofileform':editprofileform, 'USER':require.user}
+    return render(require, 'Login/edit-profile.html', Content)
 
 
 
-@login_required(login_url='Login:登录')
-def 修改密码(require):
+@login_required(login_url='Login:logIn')
+def changepassword(require):
     if require.method == 'POST':
-        改密表单 = PasswordChangeForm(data= require.POST,user = require.user)
-        if 改密表单.is_valid():
-            改密表单.save()
-            return redirect('Login:登录')
+        changepasswordForm = PasswordChangeForm(data= require.POST,user = require.user)
+        if changepasswordForm.is_valid():
+            changepasswordForm.save()
+            return redirect('Login:PAGE')
     else:
-        改密表单 = PasswordChangeForm(user = require.user)
+        changepasswordForm = PasswordChangeForm(user = require.user)
 
-    内容 = {'改密表单':改密表单, '用户':require.user}
-    return render(require, 'Login/change-password.html', 内容)
+    Content = {'changepasswordForm':changepasswordForm, 'USER':require.user}
+    return render(require, 'Login/change-password.html', Content)
 
 
 def upload(request,id):

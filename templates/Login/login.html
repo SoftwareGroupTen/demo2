@@ -15,7 +15,7 @@
             <br>
             <form action = "" method = "POST">
 				{% csrf_token %}
-				{{ 错误 }}
+				{{ ERROR }}
 				
 				<!--
 				<input type = "text" name = "username" placeholder = "用户名">
@@ -34,8 +34,8 @@
 					<input type="password" class="form-control" name = "password" placeholder = "密码">
                 </div>
                 <!-- 提交按钮 -->
-                {{ 登录表单.验证码 }}
-				{{ 登录表单.errors.验证码 }}
+                {{ loginform.VerificationCode }}
+				{{ loginform.errors.VerificationCode }}
 				<button type = "submit" class = "btn btn-primary">登录</button>
             </form>
         </div>

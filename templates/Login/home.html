@@ -48,9 +48,9 @@ background-attachment: fixed;">
     
         {% if user.is_authenticated %}
         
-            <!--<a class="nav-link" style="color:white" href="{% url 'Login:登出' %}">登出</a>-->
-            <!--<a href="{% url 'Login:个人中心' %}" class="btn btn-primary">个人中心</a>-->
-            <!--<a class="nav-link" style="color:greenyellow" href="{% url 'Login:个人中心' %}">个人中心</a>-->
+            <!--<a class="nav-link" style="color:white" href="{% url 'Login:logOut' %}">登出</a>-->
+            <!--<a href="{% url 'Login:usercenter' %}" class="btn btn-primary">个人中心</a>-->
+            <!--<a class="nav-link" style="color:greenyellow" href="{% url 'Login:usercenter' %}">个人中心</a>-->
         
         <br>
         <div class="col-2 alert alert-success">当前用户:{{ user.username }}</div>
@@ -258,8 +258,8 @@ background-attachment: fixed;">
                                     
                                     <!-- 验证码 -->
                                     <div class="form-group">
-                                        {{ 登录表单.验证码 }}
-                                        {{ 登录表单.errors.验证码 }}
+                                        {{ loginform.VerificationCode }}
+                                        {{ loginform.errors.VerificationCode }}
                                     </div>
                                                         
                                     <!-- 提交按钮 -->
@@ -267,7 +267,7 @@ background-attachment: fixed;">
                                         <button type = "submit" class = "btn btn-primary btn-block btn-success">登录</button>   
                                     </div>
                                     <div class="form-group">
-                                        <a href="{% url 'Login:注册' %}" role="button" class="btn btn-link pull-right " class="img-circle" style="font-size: large;">No account?</a>
+                                        <a href="{% url 'Login:Register' %}" role="button" class="btn btn-link pull-right " class="img-circle" style="font-size: large;">No account?</a>
                                     </div>
                             </div>
                     </div>

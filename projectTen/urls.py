@@ -29,3 +29,4 @@ urlpatterns = [
     path('notice/', include('notice.urls', namespace='notice')),
     
 ]+ static (projectTen.settings.MEDIA_URL, document_root=projectTen.settings.MEDIA_ROOT)
+

@@ -19,6 +19,14 @@ class NoticeListView(LoginRequiredMixin, ListView):
     # 未读通知的查询集
     def get_queryset(self):
         return self.request.user.notifications.unread()
+    #已读通知
+    def get_context_data(self, **kwargs):
+        # 获取原有的上下文
+        context = super().get_context_data(**kwargs)
+        # 增加新上下文
+        notices_readed=self.request.user.notifications.read()
+        context['readednotices'] = notices_readed
+        return context
 
 class NoticeUpdateView(View):
     """更新通知状态"""

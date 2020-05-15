@@ -173,6 +173,9 @@ def addassistant(request,id):
 
 def homeworkdetail(request,id):
     homework = Homework.objects.get(id=id)
+    noticeid = request.GET['notice_id']
+    if noticeid:
+        request.user.notifications.get(id=noticeid).mark_as_read()
     time = timezone.now()
     context = {'homework':homework,'time':time}
     return render(request,'Login/homeworkdetail.html',context)

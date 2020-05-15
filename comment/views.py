@@ -3,7 +3,10 @@ from django.http import HttpResponse
 from comment import models as commentModels
 from upload import models as uploadModels
 from .forms import CommentForm
-
+from upload.models import userfile
+from django.contrib.auth.models import User
+from HomeworkPublish.models import Homework
+from notifications.signals import notify
 # Create your views here.
 
 def postComment(request):
@@ -25,6 +28,17 @@ def showComment(request):
             newComment.point=point
             newComment.body=body
             newComment.save()
+            student = userfile.objects.get(id=hwId)
+            stu = User.objects.get(username = student.username )
+            homework = Homework.objects.get(id=student.homework_id)
+            notify.send(
+                request.user,
+                recipient=stu,
+                verb='创建了新评论',
+                target=homework,
+                action_object=newComment,
+                    
+            ) 
         else:
             comment=commentModels.Comment.objects.filter(userfile=fileId)
             context = {'error': '输入内容有误或为空，请重新填写。', 'fileId': fileId, 'comment': comment, 'hwId': hwId}

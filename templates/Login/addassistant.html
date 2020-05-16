@@ -65,6 +65,27 @@
             <p>助教名称:<input type="text" name="assistantName" ></p>
             <input type="submit" value="ok">
             -->
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                    <script type="text/javascript">
+                        function feedback() {
+                            layer.open({
+                                title: "来自本网页的提示",
+                                content: "添加成功",
+                                end : function() {
+                                    location.href='{% url "Login:coursedetail" Course.id %}'
+                                },
+            
+                            })
+                        }
+                        window.onload = feedback;
+                    </script>
+                {% endif %}
+                {% endfor %} 
+            </ul>
+            {% endif %}
         </form>
         {% else %}
         <form action = "" method = "POST">

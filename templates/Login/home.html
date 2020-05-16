@@ -93,6 +93,7 @@ background-attachment: fixed;">
                                     >
                                         详情
                                     </a>
+                                    
                                 
 
                                 <!-- 标签 -->
@@ -102,7 +103,14 @@ background-attachment: fixed;">
                                        style="color: grey;"
                                     >
                                     {{ c.teacherName }}
-                                        </a>
+                                    </a>
+                                    <a class="badge badge-pill badge-light hvr-float-shadow"
+                                       href="{% url 'Login:coursedelete' c.id %}"
+                                       style="color: rgb(13, 200, 233);"
+                                    >
+                                    删除此课程
+                                    </a>
+                                    
                                 
                                 </div>
                             </div>
@@ -277,4 +285,18 @@ background-attachment: fixed;">
     
 </div>
 </body>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <script type="text/javascript">
+        function feedback() {
+            layer.open({
+                title: "来自本网页的提示",
+                content: "已删除此课程",
+            })
+        }
+        window.onload = feedback;
+    </script>
+    {% endfor %}                    
+{% endif %}
 {% endblock content %}

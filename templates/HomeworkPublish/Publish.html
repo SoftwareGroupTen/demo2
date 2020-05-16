@@ -37,6 +37,42 @@
                 <div class="form-group col-md-4">
                     <button type="submit" class="btn btn-primary">完成</button>
                 </div>
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                        <script type="text/javascript">
+                            function feedback() {
+                                layer.open({
+                                    title: "来自本网页的提示",
+                                    content: "发布成功",
+                                    end : function() {
+                                        location.href='{% url "Login:coursedetail" hw.courseNum %}'
+                                    },
+                    
+                                })
+                            }
+                            window.onload = feedback;
+                        </script>
+                    {% endif %}
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <script type="text/javascript">
+                            function feedback() {
+                                layer.open({
+                                    title: "来自本网页的提示",
+                                    content: "作业内容有误，请重新填写",
+                                    end : function() {
+                                        location.href=document.referrer
+                                    },
+                    
+                                })
+                            }
+                            window.onload = feedback;
+                        </script>
+                    {% endif %}
+                    {% endfor %} 
+                </ul>
+                {% endif %}
             </form>
         </div>
     </div>

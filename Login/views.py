@@ -14,6 +14,7 @@ from .models import stucourse
 from .models import asscourse
 from django.contrib.auth.models import User
 from notifications.signals import notify
+from django.contrib import messages
 
 def PAGE(request):
     if request.user.is_authenticated:
@@ -116,7 +117,8 @@ def upload(request,id):
         uf.homework = Homework.objects.get(id=id)
         uf.headImg = request.FILES.get('tttt',None)
         uf.save()
-        return HttpResponse('upload ok!')
+        messages.info(request,"上传成功")
+        #return HttpResponse('upload ok!')
     return render(request,'Login/upload.html',{'uf':uf})
 
 def addcourse(request):
@@ -126,7 +128,8 @@ def addcourse(request):
         Nowcourse.courseNum = request.POST['courseNum']
         Nowcourse.courseName = request.POST['courseName']
         Nowcourse.save()
-        return HttpResponse('添加成功')
+        messages.info(request,"添加成功")
+        #return HttpResponse('添加成功')
     return render(request,'Login/addcourse.html',{'Nowcourse':Nowcourse})
 
 def joincourse(request):
@@ -159,7 +162,8 @@ def coursedetail(request,id):
 def coursedelete(request,id):
     target = course.objects.get(id=id)
     target.delete()
-    return HttpResponse("已删除课程")
+    messages.info(request,"已删除此课程")
+    return redirect('Login:PAGE')
 
 def addassistant(request,id):
     assistant = asscourse()
@@ -168,7 +172,8 @@ def addassistant(request,id):
         assistant.assistantName = request.POST['assistantName']
         assistant.thecourse = Course
         assistant.save()
-        return HttpResponse('添加成功')
+        messages.info(request,"添加成功")
+        #return HttpResponse('添加成功')
     return render(request,'Login/addassistant.html',{'Course':Course})
 
 def homeworkdetail(request,id):

@@ -6,6 +6,7 @@ from .models import Homework
 from notifications.signals import notify
 from Login.models import stucourse
 from Login.models import course
+from django.contrib import messages
 # Create your views here.
 def Homework_list(request):
     homework = Homework.objects.all()
@@ -34,14 +35,20 @@ def Homework_Publish(request,id):
                     action_object=homework,
                     
                 ) 
-            
-            return HttpResponse("已发布，请返回刷新页面")
+            messages.info(request,"发布成功")
+            #return HttpResponse("已发布，请返回刷新页面")
         else:
-            return HttpResponse("作业内容有误，请重新填写。")
+            messages.error(request,"作业内容有误，请重新填写")
+            #return HttpResponse("作业内容有误，请重新填写。")
     return render(request,'HomeworkPublish/Publish.html',{'hw':homework})
 
 def Homework_delete(request,id):
     homework = Homework.objects.get(id=id)
-    context = {'homework':homework}
+    ID=homework.courseNum
     homework.delete()
-    return HttpResponse("已删除，请返回刷新页面")
+    mycourse = course.objects.get(id=ID)
+    sc = stucourse.objects.filter( thecourse_id = ID)
+    hw=Homework.objects.filter(courseNum = ID)
+    context = {'mycourse':mycourse,'sc':sc,'hw':hw}
+    messages.info(request,"已删除此作业")
+    return render(request,'Login/coursedetail.html',context)

@@ -75,7 +75,19 @@
                     
                     
                     {% if request.session.role == '老师' %}
-                    <a href ="{% url 'HomeworkPublish:Homework_delete' homework.id %}">删除此作业</a>
+                    <a href="#" onclick="confirm_delete()">删除此作业</a>
+                                        
+                        <script>
+                            function confirm_delete() {
+                                layer.open({
+                                    title: "来自本网页的提示",
+                                    content: "确认删除此作业吗？",
+                                    yes: function(index, layero) {
+                                        location.href="{% url 'HomeworkPublish:Homework_delete' homework.id %}"
+                                    },
+                                })
+                            }
+                        </script>
                     {% endif %}
 
                     {% if request.session.role == '助教' %}

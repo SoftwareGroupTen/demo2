@@ -42,11 +42,9 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h1>作业详情页</h1>
-            <br>
             {% if user.is_authenticated %}
-                    <p>                    
-                    {% if time > homework.deadline_date %}
+                        <h2 class="col-12 mt-4 mb-4">{{ homework.Homework_title }}</h2>                    
+                    {% if time < homework.deadline_date %}
                         {% if request.session.role == '学生' %}
                         <a href ="{% url 'Login:upload' homework.id %}">提交此作业</a>
                         {% endif %}
@@ -58,8 +56,13 @@
                         {% endif %}
                     {% endif %}
 
-                    
-                    
+                    {% if request.session.role == '助教' %}
+                    <td><a href='../makecomments?hwID={{homework.id}}' class="btn btn-primary">批改</a></td>
+                
+                    {% endif %}
+                    <div class="col-8 alert alert-success">
+                    发布时间：{{ homework.Pub_time }}
+                    截止时间：{{ homework.deadline_date}} {{ homework.deadline_time}}
                     {% if request.session.role == '老师' %}
                     <a href="#" onclick="confirm_delete()">删除此作业</a>
                                         
@@ -75,26 +78,12 @@
                             }
                         </script>
                     {% endif %}
-
-                    {% if request.session.role == '助教' %}
-                    <td><a href='../makecomments?hwID={{homework.id}}' class="btn btn-primary">批改</a></td>
-                
-                    {% endif %}
-                    <div class="col-3 alert alert-success">
-                        发布时间：{{ homework.Pub_time }}
-                    </div>
-
-                    <div class="col-3 alert alert-success">
-                        截止时间：{{ homework.deadline_date}} {{ homework.deadline_time}}
                     </div>
                     <div class="col-12">
                         <p>{{ homework.Homework_text|safe }}</p>
                     </div>
 
                     
-                    
-
-                    </p>
             
                 
                     {% else %}

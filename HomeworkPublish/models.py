@@ -6,6 +6,7 @@ from django.utils import timezone
 
 class Homework(models.Model):
     #subject = models.ForeignKey(user, on_delete=models.CASCADE)
+    Homework_title =models.TextField()
     Homework_text =models.TextField()
     courseNum = models.IntegerField()
     Pub_time = models.DateTimeField(default=timezone.now)

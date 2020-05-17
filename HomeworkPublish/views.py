@@ -19,6 +19,7 @@ def Homework_Publish(request,id):
         Homework_Publish_form = HomeworkFrom(data=request.POST)
         if Homework_Publish_form.is_valid():
             homework.courseNum = id
+            homework.Homework_title = request.POST['Homework_title']
             homework.Homework_text = request.POST['Homework_text']
             homework.deadline_date = request.POST['deadline_date']
             homework.deadline_time = request.POST['deadline_time']

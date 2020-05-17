@@ -10,8 +10,11 @@
     <div class="row mt-4 ml-4">
         <a href="{% url "notice:update" %}" class="btn btn-warning" role="button">清空所有未读通知</a>
     </div>
+    <br>
     <!-- 未读通知列表 -->
-    <h6>未读通知列表:</h6>
+    <div class="col-2 alert alert-success">
+        未读消息:
+    </div>
     <div class="row mt-2 ml-4">
         <ul class="list-group">
             {% for notice in notices %}
@@ -30,7 +33,9 @@
         </ul>
     </div>
     <!-- 已读通知列表 -->
-    <h6>已读通知列表:</h6>
+    <div class="col-2 alert alert-success">
+        已读消息:
+    </div>
     <div class="row mt-2 ml-4">
         <ul class="list-group">
             {% for notice in readednotices %}

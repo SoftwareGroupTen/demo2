@@ -15,6 +15,7 @@ from .models import asscourse
 from django.contrib.auth.models import User
 from notifications.signals import notify
 from django.contrib import messages
+import markdown
 
 def PAGE(request):
     if request.user.is_authenticated:
@@ -179,6 +180,13 @@ def addassistant(request,id):
 def homeworkdetail(request,id):
     homework = Homework.objects.get(id=id)
     time = timezone.now()
+    homework.Homework_text = markdown.markdown(homework.Homework_text,
+        extensions=[
+        # 包含 缩写、表格等常用扩展
+        'markdown.extensions.extra',
+        # 语法高亮扩展
+        'markdown.extensions.codehilite',
+        ])
     context = {'homework':homework,'time':time}
     return render(request,'Login/homeworkdetail.html',context)
 

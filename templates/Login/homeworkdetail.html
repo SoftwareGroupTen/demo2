@@ -45,21 +45,7 @@
             <h1>作业详情页</h1>
             <br>
             {% if user.is_authenticated %}
-                <!--<a href = "{% url 'Login:logOut' %}">登出</a>-->
-                <div class="col-3 alert alert-success">当前用户:{{ user.username }}</div>
-                    <p>
-                    <div class="col-3 alert alert-success">
-                        作业内容：{{ homework.Homework_text}}
-                    </div>
-
-                    <div class="col-3 alert alert-success">
-                        发布时间：{{ homework.Pub_time }}
-                    </div>
-
-                    <div class="col-3 alert alert-success">
-                        截止时间：{{ homework.deadline_date}} {{ homework.deadline_time}}
-                    </div>
-                    
+                    <p>                    
                     {% if time > homework.deadline_date %}
                         {% if request.session.role == '学生' %}
                         <a href ="{% url 'Login:upload' homework.id %}">提交此作业</a>
@@ -94,6 +80,20 @@
                     <td><a href='../makecomments?hwID={{homework.id}}' class="btn btn-primary">批改</a></td>
                 
                     {% endif %}
+                    <div class="col-3 alert alert-success">
+                        发布时间：{{ homework.Pub_time }}
+                    </div>
+
+                    <div class="col-3 alert alert-success">
+                        截止时间：{{ homework.deadline_date}} {{ homework.deadline_time}}
+                    </div>
+                    <div class="col-12">
+                        <p>{{ homework.Homework_text|safe }}</p>
+                    </div>
+
+                    
+                    
+
                     </p>
             
                 

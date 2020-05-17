@@ -53,17 +53,19 @@ background-attachment: fixed;">
             <!--<a class="nav-link" style="color:greenyellow" href="{% url 'Login:usercenter' %}">个人中心</a>-->
         
         <br>
-        <div class="col-2 alert alert-success">当前用户:{{ user.username }}</div>
-        <div class="col-2 alert alert-success">当前用户身份:{{ request.session.role }}</div>
+
         <!--<p style="color:white">当前用户:{{ user.username }}</p>-->
         <!--<p style="color:white">当前用户身份:{{ request.session.role }}</p>-->
-            
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-md-9 column">   
             {% if request.session.role == '老师' %}
-                <p><a style="color:white" href ="{% url 'Login:addcourse' %}">添加课程</a></p>
+                <p><a class="btn btn-primary" style="color:white" href ="{% url 'Login:addcourse' %}">添加课程</a></p>
+                <br>
                 <p style="color:white">我的课程:</p>
                 <ul>
                     {% for c in mycourse %}
-                    <div class="col-4 mb-4">
+                    <div class="col-8 mb-4">
                         <!-- 卡片容器 -->
                         <div class="card h-100">
                         <div class="card-body">
@@ -238,6 +240,21 @@ background-attachment: fixed;">
                 </ul>
                 -->
             {% endif %}
+            </div>
+            <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+            <script src="/static/layui/layui.js"></script>
+            <div class="newsbox f_l " id="test-n1">
+        
+                <script>
+                    layui.use('laydate', function () {
+                        var laydate = layui.laydate;
+                        laydate.render({
+                            elem: '#test-n1'
+                            , position: 'static'
+                        });
+                    });
+                </script>
+            </div>
             
             {% else %}
             <form action = "" method = "POST">

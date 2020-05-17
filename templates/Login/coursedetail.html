@@ -81,7 +81,19 @@
                                 <div class="card-footer">
                                     <a href ="{% url 'Login:homeworkdetail' Homework.id %}" class="btn btn-primary">详情</a>
                                     {% if request.session.role == '老师' %}
+                                        <a href="#" onclick="confirm_delete()">删除此作业</a>
                                         <a href ="{% url 'HomeworkPublish:Homework_delete' Homework.id %}" class="btn btn-primary">删除此作业</a>
+                                        <script>
+                                            function confirm_delete() {
+                                                layer.open({
+                                                    title: "来自本网页的提示",
+                                                    content: "确认删除此作业吗？",
+                                                    yes: function(index, layero) {
+                                                        location.href="{% url 'HomeworkPublish:Homework_delete' Homework.id %}"
+                                                    },
+                                                })
+                                            }
+                                        </script>
                                     {% endif %}
                                     {% if request.session.role == '学生' %}
                                         <a href ="{% url 'Login:upload' Homework.id %}" class="btn btn-primary">提交此作业</a>

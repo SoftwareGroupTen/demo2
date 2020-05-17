@@ -1,3 +1,39 @@
-{% for comment in comments %}
-    <p>{{comment.point}} {{comment.body}}</p>
-{% endfor %}
+<!-- extends表明此页面继承自 baseHome.html 文件 -->
+{% extends "baseHome.html" %}
+{% load staticfiles %}
+
+<!-- 写入 baseHome.html 中定义的 title -->
+{% block title %}
+    查看成绩
+{% endblock title %}
+
+<!-- 写入 baseHome.html 中定义的 content -->
+{% block content %}
+{% if not comments %}
+<h4 class="card-header">暂无评论</h4>
+{% endif %}
+<div class="container">
+    <div class="row mt-2">
+        {% for comment in comments %}
+            <!--评论内容-->
+            <div class="col-3 mb-4">
+                <!-- 卡片容器 -->
+                <div class="card h-100">
+                    <!-- 标题 -->
+                    <h4 class="card-header">成绩评定</h4>
+                    <!-- 摘要 -->
+                    <div class="card-body">
+                        <p class="card-text">作业标题：{{comment.userfile.homework.Homework_title}}</p>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">作业评分：{{comment.point}}</p>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">评价：{{comment.body}}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}  
+    </div>
+</div> 
+{% endblock content %}

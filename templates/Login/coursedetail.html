@@ -63,6 +63,9 @@
                         }
                     </script>            
                 {% endif %}
+                {% if request.session.role == '学生' %}
+                    <a href="{% url 'Login:checkcomments' mycourse.id  %}" class="btn btn-primary">查看成绩</a>           
+                {% endif %}
                 <div><br></div>
                 <div class="col-3 alert alert-warning">参课学生：</div>
                 {% for s in sc %}

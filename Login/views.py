@@ -3,18 +3,20 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm, PasswordChangeForm
 from django.http import HttpResponse
 from django.db.models import Q
+from django.contrib.auth.models import User
+from notifications.signals import notify
+from django.contrib import messages
 from .forms import customizedregisterForm,customizededitForm,customizedloginForm
 from .models import normaluserform
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from HomeworkPublish.models import Homework
 from upload.models import userfile
+from comment.models import Comment
 from .models import course
 from .models import stucourse
 from .models import asscourse
-from django.contrib.auth.models import User
-from notifications.signals import notify
-from django.contrib import messages
+
 import markdown
 
 def PAGE(request):
@@ -213,3 +215,18 @@ def persondetail(request):
     user = request.GET['user']
     detail = User.objects.get(username = user )
     return render(request,'Login/persondetail.html',{'detail':detail})
+
+def checkcomments(request,id):
+    homeworks = Homework.objects.filter(courseNum=id)
+    comments = []
+    for homework in homeworks:
+        uploads = userfile.objects.filter(homework_id = homework.id)
+        for upload in uploads:
+            if upload.username == request.user.username:
+                cm = Comment.objects.get(userfile_id = upload.id)
+                comments.append(cm)
+    context = {'comments':comments}
+    return render(request,'Login/checkcomments.html',context)
+                
+
+

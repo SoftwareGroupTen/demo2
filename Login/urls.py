@@ -20,4 +20,5 @@ urlpatterns = [
     path('persondetail/',views.persondetail,name='persondetail'),
     path('user-center/edit-profile', views.editprofile, name = 'editprofile'),
     path('user-center/change-password', views.changepassword, name = 'changepassword'),
+    path('checkcomments/<int:id>', views.checkcomments, name = 'checkcomments'),
 ]

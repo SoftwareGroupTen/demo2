@@ -28,7 +28,7 @@ def showComment(request):
             newComment.point=point
             newComment.body=body
             newComment.save()
-            student = userfile.objects.get(id=hwId)
+            student = userfile.objects.get(homework_id=hwId)
             stu = User.objects.get(username = student.username )
             homework = Homework.objects.get(id=student.homework_id)
             notify.send(

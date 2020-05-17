@@ -17,4 +17,4 @@ class Homework(models.Model):
         ordering = ('-Pub_time',)
     
     def __str__(self):
-        return self.Homework_text
+        return self.Homework_title

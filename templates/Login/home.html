@@ -119,7 +119,7 @@ background-attachment: fixed;">
             {% endif %}
             
             {% if request.session.role == '学生' %}
-                <p><a style="color:white" href ="{% url 'Login:joincourse' %}">寻找课程</a></p>
+                <p><a class="btn btn-primary" style="color:white" href ="{% url 'Login:joincourse' %}">寻找课程</a></p>
                 <p style="color:white">我的课程:</p>
                         
                             {% for c in sc %}

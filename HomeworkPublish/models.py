@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 from django.utils import timezone
 
+# 作业模型，包含各项内容如下
 class Homework(models.Model):
     #subject = models.ForeignKey(user, on_delete=models.CASCADE)
     Homework_title =models.TextField()

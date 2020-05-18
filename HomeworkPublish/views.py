@@ -8,11 +8,14 @@ from Login.models import stucourse
 from Login.models import course
 from django.contrib import messages
 # Create your views here.
+
+#展示作业列表
 def Homework_list(request):
     homework = Homework.objects.all()
     context = {'homework':homework}
     return render(request, 'HomeworkPublish/list.html',context)
 
+#作业发布
 def Homework_Publish(request,id):
     homework = Homework()
     if request.method == "POST":
@@ -43,6 +46,7 @@ def Homework_Publish(request,id):
             #return HttpResponse("作业内容有误，请重新填写。")
     return render(request,'HomeworkPublish/Publish.html',{'hw':homework})
 
+#作业删除
 def Homework_delete(request,id):
     homework = Homework.objects.get(id=id)
     ID=homework.courseNum

@@ -9,12 +9,14 @@ from HomeworkPublish.models import Homework
 from notifications.signals import notify
 # Create your views here.
 
+#通过get传参，针对某个上交的作业评分以及评论
 def postComment(request):
     fileId=request.GET.get('fileId')
     hwId=request.GET.get('hwId')
     context = {'fileId': fileId, 'hwId': hwId}
     return render(request, 'comment/postComment.html', context)
 
+#展示评论分数以及提交表单
 def showComment(request):
     if request.method == 'POST':
         fileId=request.POST.get('fileId')
@@ -51,6 +53,7 @@ def showComment(request):
     context = {'comment': comment, 'hwId': hwId}
     return render(request, 'comment/showComment.html', context)
 
+#删除评论
 def deleteComment(request):
     commentId=request.GET.get('commentId')
     deleComment=commentModels.Comment.objects.filter(id=int(commentId))

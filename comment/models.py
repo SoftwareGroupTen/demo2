@@ -2,6 +2,7 @@ from django.db import models
 from Login.models import normaluserform
 from upload.models import userfile
 
+#评论的模型
 class Comment(models.Model):
     userfile = models.ForeignKey(
         userfile,

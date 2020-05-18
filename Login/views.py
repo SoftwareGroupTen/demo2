@@ -16,9 +16,9 @@ from comment.models import Comment
 from .models import course
 from .models import stucourse
 from .models import asscourse
-
 import markdown
 
+#主页，包含登录模块，以及传各种参数
 def PAGE(request):
     if request.user.is_authenticated:
         mycourse=course.objects.filter(teacherName = request.user.username)
@@ -50,7 +50,7 @@ def PAGE(request):
 
 
 
-
+#登出模块
 def logOut(request):
     try:
         del request.session['role']
@@ -59,7 +59,7 @@ def logOut(request):
     logout(request)
     return redirect('Login:PAGE')
 
-
+#注册
 def Register(require):
     if require.method == 'POST':
         registerform = customizedregisterForm(require.POST)
@@ -76,11 +76,12 @@ def Register(require):
     Content = {'registerform':registerform}
     return render(require, 'Login/register.html', Content)
 
+#用户中心（需登录）
 @login_required(login_url='Login:logIn')
 def usercenter(require):
     Content = {'USER': require.user}
     return render(require, 'Login/user-center.html', Content)
-
+#编辑个人信息（需登录）
 @login_required(login_url='Login:logIn')
 def editprofile(require):
     if require.method == 'POST':
@@ -98,7 +99,7 @@ def editprofile(require):
     return render(require, 'Login/edit-profile.html', Content)
 
 
-
+#修改密码（需登录）
 @login_required(login_url='Login:logIn')
 def changepassword(require):
     if require.method == 'POST':
@@ -112,7 +113,7 @@ def changepassword(require):
     Content = {'changepasswordForm':changepasswordForm, 'USER':require.user}
     return render(require, 'Login/change-password.html', Content)
 
-
+# 上传文件
 def upload(request,id):
     uf=userfile()
     if request.method == "POST":
@@ -124,6 +125,7 @@ def upload(request,id):
         #return HttpResponse('upload ok!')
     return render(request,'Login/upload.html',{'uf':uf})
 
+#增设课程（需要老师的权限）
 def addcourse(request):
     Nowcourse = course()
     if request.method == "POST":
@@ -135,6 +137,7 @@ def addcourse(request):
         #return HttpResponse('添加成功')
     return render(request,'Login/addcourse.html',{'Nowcourse':Nowcourse})
 
+#加入课程（需要学生的权限）
 def joincourse(request):
     search = request.GET.get('search')
     if search:
@@ -154,7 +157,7 @@ def joincourse(request):
     context = {'search':search,'target':target}
     return render(request,"Login/joincourse.html",context)
 
-
+#展示课程细节
 def coursedetail(request,id):
     mycourse=course.objects.get(id = id)
     sc = stucourse.objects.filter( thecourse_id = id)
@@ -162,12 +165,14 @@ def coursedetail(request,id):
     context = {'mycourse':mycourse,'sc':sc,'hw':hw}
     return render(request,'Login/coursedetail.html',context)
 
+#删除课程
 def coursedelete(request,id):
     target = course.objects.get(id=id)
     target.delete()
     messages.info(request,"已删除此课程")
     return redirect('Login:PAGE')
 
+#为某门课添加助教（需要老师的权限）
 def addassistant(request,id):
     assistant = asscourse()
     Course = course.objects.get(id=id)
@@ -179,6 +184,7 @@ def addassistant(request,id):
         #return HttpResponse('添加成功')
     return render(request,'Login/addassistant.html',{'Course':Course})
 
+#展示作业细节
 def homeworkdetail(request,id):
     homework = Homework.objects.get(id=id)
     time = timezone.now()
@@ -192,6 +198,7 @@ def homeworkdetail(request,id):
     context = {'homework':homework,'time':time}
     return render(request,'Login/homeworkdetail.html',context)
 
+#展示需要评论的列表
 def makecomments(request):
     hwID = request.GET.get('hwID')
     course = Homework.objects.get(id=hwID)
@@ -211,11 +218,13 @@ def makecomments(request):
         context = {}
     return render(request,'Login/makecomment.html',context)
 
+#某一个人的信息
 def persondetail(request):
     user = request.GET['user']
     detail = User.objects.get(username = user )
     return render(request,'Login/persondetail.html',{'detail':detail})
 
+#查看分数（需要学生的权限）
 def checkcomments(request,id):
     homeworks = Homework.objects.filter(courseNum=id)
     comments = []

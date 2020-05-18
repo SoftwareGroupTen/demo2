@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from Login.models import normaluserform
 from upload.models import userfile
 
 class Comment(models.Model):
@@ -8,6 +8,7 @@ class Comment(models.Model):
         on_delete=models.CASCADE,
         related_name='comments'
     )
+    commentator = models.CharField(max_length=10)
     point = models.FloatField(null=True)
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)

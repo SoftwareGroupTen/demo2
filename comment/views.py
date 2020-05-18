@@ -26,6 +26,7 @@ def showComment(request):
             newComment=commentModels.Comment()
             newComment.userfile_id=fileId
             newComment.point=point
+            newComment.commentator=request.user.username
             newComment.body=body
             newComment.save()
             student = userfile.objects.get(homework_id=hwId)

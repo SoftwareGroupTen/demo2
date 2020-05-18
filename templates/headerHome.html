@@ -1,11 +1,14 @@
 {% load notifications_tags %}
 {% notifications_unread as unread_count %}
+{% load staticfiles %}
 <!-- 定义导航栏 -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-  
         <!-- 导航栏商标 -->
-        <a class="navbar-brand" href="#">Good Homework Online</a>
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'images/symbol.png' %}" width="28" height="28">
+            Good Homework Online
+        </a>
         {% if user.is_authenticated %}
 
             <div>
@@ -17,7 +20,7 @@
             <!-- 如果用户已经登录，则显示用户名下拉框 -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" style="color:white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     <!-- 新增代码，小红点 -->
+                    <!-- 新增代码，小红点 -->
                     {% if unread_count %}
                         <svg viewBox="0 0 8 8"
                         width="8px"
@@ -39,7 +42,7 @@
                             {% endif %}
                         </a>
                 <a class="dropdown-item" href="{% url 'Login:usercenter' %} ">个人中心</a>
-                <a class="dropdown-item" href="{% url 'Login:logOut' %} ">退出登录</a>
+                <a class="dropdown-item" href="#" onclick="confirmLogout()">退出登录</a>
                 </div>
             </li>
 
@@ -60,3 +63,21 @@
   
     </div>
 </nav>
+
+<script>
+    // 退出登录的函数
+    function confirmLogout() {
+        // 调用layer弹窗组件
+        layer.open({
+            // 弹窗标题
+            title: "退出登录",
+            // 正文
+            content: "确认退出当前账号吗？",
+            // 点击确定按钮后调用的回调函数
+            yes: function(index, layero) {
+                // 指定应当前往的 url
+                location.href="{% url 'Login:logOut' %}"
+            },
+        })
+    }
+</script>

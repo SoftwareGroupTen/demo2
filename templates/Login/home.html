@@ -1,7 +1,6 @@
 <!-- extends表明此页面继承自 baseHome.html 文件 -->
 {% extends "baseHome.html" %}
 {% load staticfiles %}
-
 <!-- 写入 baseHome.html 中定义的 title -->
 {% block title %}
     主页
@@ -42,20 +41,15 @@
 
 <body background="/static/images/bg.jpg" style=" background-repeat:no-repeat ;background-size:100% 100%;
 background-attachment: fixed;">
-<div class="container">
-    
-        <h1 class="text-center" style="color:rgba(255, 251, 0, 0.753)">Good Homework Online</h1>
+<div class="container" >
+        <h1 class="text-center" style="color:rgba(255, 251, 0, 0.753)">
+            Good Homework Online
+            <img src="{% static 'images/symbol.png' %}" width="40" height="40">
+        </h1>
+        
     
         {% if user.is_authenticated %}
-        
-            <!--<a class="nav-link" style="color:white" href="{% url 'Login:logOut' %}">登出</a>-->
-            <!--<a href="{% url 'Login:usercenter' %}" class="btn btn-primary">个人中心</a>-->
-            <!--<a class="nav-link" style="color:greenyellow" href="{% url 'Login:usercenter' %}">个人中心</a>-->
-        
         <br>
-
-        <!--<p style="color:white">当前用户:{{ user.username }}</p>-->
-        <!--<p style="color:white">当前用户身份:{{ request.session.role }}</p>-->
         <div class="container">
             <div class="row clearfix">
                 <div class="col-md-9 column">   
@@ -102,8 +96,7 @@ background-attachment: fixed;">
                                 
                                     <a class="badge badge-pill badge-light hvr-float-shadow"
                                        href='../../Login/persondetail?user={{ cteacherName }}'
-                                       style="color: grey;"
-                                    >
+                                       style="color: grey;">
                                     {{ c.teacherName }}
                                     </a>
                                     
@@ -231,14 +224,6 @@ background-attachment: fixed;">
                     {% endfor %} 
                     </div>
                 </div>
-            
-                <!--
-                <ul>
-                    {% for c in ac %}
-                    <li><a style="color:greenyellow" href ="{% url 'Login:coursedetail' c.thecourse.id %}">{{ c.thecourse.courseName }}</a></li>
-                    {% endfor %}
-                </ul>
-                -->
             {% endif %}
             </div>
             <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">

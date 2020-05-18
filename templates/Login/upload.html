@@ -9,6 +9,11 @@
 
 {% block head %}
     <link href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文件上传</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
 {% endblock head %}
 
 {% block style %}
@@ -39,16 +44,9 @@
 
 <!-- 写入 baseHome.html 中定义的 content -->
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>文件上传</title>
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-</head>
-<body>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
     {% if user.is_authenticated %}
     <h1>文件上传</h1>
     <form action="" method="post" enctype="multipart/form-data">
@@ -118,7 +116,8 @@
                 </div>
             </div>
         </form>
-        {% endif %}
-</body>
-</html>
+    {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock content %}

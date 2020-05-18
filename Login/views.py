@@ -17,6 +17,7 @@ from .models import course
 from .models import stucourse
 from .models import asscourse
 import markdown
+import time,datetime
 
 #主页，包含登录模块，以及传各种参数
 def PAGE(request):
@@ -187,7 +188,8 @@ def addassistant(request,id):
 #展示作业细节
 def homeworkdetail(request,id):
     homework = Homework.objects.get(id=id)
-    time = timezone.now()
+    
+    #nowtime = timezone.now()
     homework.Homework_text = markdown.markdown(homework.Homework_text,
         extensions=[
         # 包含 缩写、表格等常用扩展
@@ -195,7 +197,18 @@ def homeworkdetail(request,id):
         # 语法高亮扩展
         'markdown.extensions.codehilite',
         ])
-    context = {'homework':homework,'time':time}
+    nowtime = datetime.datetime.now()
+    date_str = homework.deadline_date
+    time_str = homework.deadline_time
+    date_fmt = '%Y-%m-%d'
+    time_fmt = '%H:%M'
+    date_tuple = time.strptime(date_str, date_fmt)
+    year, month, day = date_tuple[:3]
+    time_tuple = time.strptime(time_str,time_fmt)
+    hour, minute = date_tuple[3:5]
+    deadline = datetime.datetime(year, month, day, hour, minute)
+    
+    context = {'homework':homework,'nowtime':nowtime,'deadline':deadline}
     return render(request,'Login/homeworkdetail.html',context)
 
 #展示需要评论的列表

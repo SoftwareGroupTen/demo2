@@ -38,9 +38,6 @@
 
 <!-- 写入 baseHome.html 中定义的 content -->
 {% block content %}
-
-<body background="/static/images/bg.jpg" style=" background-repeat:no-repeat ;background-size:100% 100%;
-background-attachment: fixed;">
 <div class="container" >
         <h1 class="text-center" style="color:rgba(255, 251, 0, 0.753)">
             Good Homework Online
@@ -54,9 +51,10 @@ background-attachment: fixed;">
             <div class="row clearfix">
                 <div class="col-md-9 column">   
             {% if request.session.role == '老师' %}
-                <p><a class="btn btn-primary" style="color:white" href ="{% url 'Login:addcourse' %}">添加课程</a></p>
                 <br>
-                <p style="color:white">我的课程:</p>
+                <div class="col-4 alert alert-success">我的课程:
+                    <a class="btn btn-primary" style="color:white" href ="{% url 'Login:addcourse' %}">添加课程</a>
+                </div>
                 <ul>
                     {% for c in mycourse %}
                     <div class="col-8 mb-4">
@@ -112,8 +110,10 @@ background-attachment: fixed;">
             {% endif %}
             
             {% if request.session.role == '学生' %}
-                <p><a class="btn btn-primary" style="color:white" href ="{% url 'Login:joincourse' %}">寻找课程</a></p>
-                <p style="color:white">我的课程:</p>
+                
+                <div class="col-4 alert alert-success">我的课程:
+                    <a class="btn btn-primary" style="color:white" href ="{% url 'Login:joincourse' %}">寻找课程</a>
+                </div>
                         
                             {% for c in sc %}
                             <div class="col-4 mb-4">
@@ -281,7 +281,7 @@ background-attachment: fixed;">
             {% endif %}
     
 </div>
-</body>
+
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}

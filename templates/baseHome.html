@@ -18,13 +18,14 @@
     {% block style %}{% endblock style %}
 </head>
 
-<body>
+<body background="/static/images/bg.jpg" style=" background-repeat:no-repeat ;background-size:100% 100%;
+background-attachment: fixed;">
     <!-- 引入导航栏 -->
     {% include 'headerHome.html' %}
     
     <!-- 预留具体页面的位置 -->
     {% block content %}{% endblock content %}
-    
+
     <!-- 引入注脚 -->
     {% include 'footer.html' %}
     

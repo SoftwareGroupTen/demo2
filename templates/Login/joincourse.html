@@ -68,16 +68,32 @@
             -->
             
             <ul>
-                {% for targetfile in target %}    
-                    <li>{{targetfile.id}}  {{targetfile.courseNum }}  {{ targetfile.teacherName }} 
-                        <form action='../joincourse/' method="GET">
-                            {% csrf_token %}
-                            
-                            <input type='hidden' name='ID' value={{targetfile.id}}>
-                            <input type='submit' class="btn btn-primary" value='加入' name ='join'>
-                        </form>
-                            
-                    </li>
+                {% for targetfile in target %} 
+                    <!-- 文章内容 -->
+                    <div class="col-4 mb-4">
+                        <!-- 卡片容器 -->
+                        <div class="card h-100">
+                            <!-- 标题 -->
+                            <h4 class="card-header">序号：{{targetfile.id}}</h4>
+                            <!-- 摘要 -->
+                            <div class="card-body">
+                                <p class="card-text">课程编号{{targetfile.courseNum }}</p>
+                            </div>
+                            <!-- 摘要 -->
+                            <div class="card-body">
+                                <p class="card-text">授课教师：{{ targetfile.teacherName }}</p>
+                            </div>
+                            <!-- 注脚 -->
+                            <div class="card-footer">
+                                <form action='../joincourse/' method="GET">
+                                    {% csrf_token %}
+                                        
+                                    <input type='hidden' name='ID' value={{targetfile.id}}>
+                                    <input type='submit' class="btn btn-primary" value='加入' name ='join'>
+                                </form>
+                            </div>
+                        </div>
+                    </div>   
                 {% endfor %}
             </ul>
             <hr>        

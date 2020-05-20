@@ -45,13 +45,16 @@
             {% if user.is_authenticated %}
                         <h2 class="col-12 mt-4 mb-4">{{ homework.Homework_title }}</h2>                    
 
-                    {% if request.session.role == '助教' %}
-                    <td><a href='../makecomments?hwID={{homework.id}}' class="btn btn-primary">批改</a></td>
-                
-                    {% endif %}
+                    
                     <div class="col-8 alert alert-success">
                     发布时间：{{ homework.Pub_time }}
                     截止时间：{{ homework.deadline_date}} {{ homework.deadline_time}}
+                    
+                    {% if request.session.role == '助教' %}
+                    <td><a href='../makecomments?hwID={{homework.id}}' class="btn btn-primary">批改</a></td>
+                    
+                    {% endif %}
+
                     {% if request.session.role == '老师' %}
                     <a href="#" onclick="confirm_delete()">删除此作业</a>
                                         

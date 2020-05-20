@@ -7,6 +7,10 @@
     编辑信息
 {% endblock title %}
 
+<!--加入滚动条-->
+<div style="position:absolute; height:400px; overflow:auto">
+</div>
+
 <!-- 写入 baseHome.html 中定义的 content -->
 {% block content %}
 <div class="container">
@@ -24,7 +28,7 @@
                 
                 <!-- 用户名 -->
                 <div class="form-group col-md-4">
-                    <label for="id_username">用户名</label>
+                    <label for="id_username">用户名:</label>
                     <input type="text" class="form-control" name="username" value="{{USER.username}}" maxlength="150" required id="id_username">
                     <span class="helptext">必填。150个字符或者更少。包含字母，数字和仅有的@/./+/-/_符号。</span>
                 </div>

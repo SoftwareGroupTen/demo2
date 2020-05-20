@@ -282,6 +282,24 @@
     
 </div>
 
+<!--
+<div class="panel-body" style="height: 400px; overflow:scroll">            
+    <div style="border: 1px  #000000; width: 90%; margin: 0 auto;">                
+                       
+    </div>        
+</div>
+
+<div class="panel-body" style="height: 400px; overflow-y:scroll">            
+    <div style="border: 1px  #000000; width: 90%; margin: 0 auto;">                
+                       
+    </div>        
+</div>
+-->
+
+<!--加入滚动条-->
+<div style="position:absolute; height:400px; overflow:auto">
+</div>
+
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
@@ -297,3 +315,4 @@
     {% endfor %}                    
 {% endif %}
 {% endblock content %}
+

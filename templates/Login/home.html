@@ -38,7 +38,6 @@
 
 <!-- 写入 baseHome.html 中定义的 content -->
 {% block content %}
-<div class="container" >
         <h1 class="text-center" style="color:rgba(255, 251, 0, 0.753)">
             Good Homework Online
             <img src="{% static 'images/symbol.png' %}" width="40" height="40">
@@ -52,7 +51,7 @@
                 <div class="col-md-9 column">   
             {% if request.session.role == '老师' %}
                 <br>
-                <div class="col-4 alert alert-success">我的课程:
+                <div class="col-6 alert alert-success">我的课程:
                     <a class="btn btn-primary" style="color:white" href ="{% url 'Login:addcourse' %}">添加课程</a>
                 </div>
                 <ul>
@@ -280,25 +279,7 @@
             </form>
             {% endif %}
     
-</div>
 
-<!--
-<div class="panel-body" style="height: 400px; overflow:scroll">            
-    <div style="border: 1px  #000000; width: 90%; margin: 0 auto;">                
-                       
-    </div>        
-</div>
-
-<div class="panel-body" style="height: 400px; overflow-y:scroll">            
-    <div style="border: 1px  #000000; width: 90%; margin: 0 auto;">                
-                       
-    </div>        
-</div>
--->
-
-<!--加入滚动条-->
-<div style="position:absolute; height:400px; overflow:auto">
-</div>
 
 {% if messages %}
 <ul class="messages">
@@ -316,3 +297,41 @@
 {% endif %}
 {% endblock content %}
 
+{% block content2 %}
+<form action = "" method = "POST">
+    {% csrf_token %}
+    {{ ERROR }}
+    <div class="container">
+        <div class="form row">
+                <div class="col-md-12">
+                        <h3 style="text-align: center;">Login to your account</h3>
+                        <!-- 账号 -->
+                        <div class="form-group">
+                            <i class="fa fa-user fa-lg"></i>
+                            <input class="form-control required" type="text" placeholder="请输入用户名" name="username" autofocus="autofocus">
+                        </div>
+                        
+                        <!-- 密码 -->
+                        <div class="form-group">
+                            <i class="fa fa-lock fa-lg"></i>
+                            <input class="form-control required" type="password" placeholder="请输入密码" name="password">
+                        </div>
+                        
+                        <!-- 验证码 -->
+                        <div class="form-group">
+                            {{ loginform.VerificationCode }}
+                            {{ loginform.errors.VerificationCode }}
+                        </div>
+                                            
+                        <!-- 提交按钮 -->
+                        <div class="form-group">
+                            <button type = "submit" class = "btn btn-primary btn-block btn-success">登录</button>   
+                        </div>
+                        <div class="form-group">
+                            <a href="{% url 'Login:Register' %}" role="button" class="btn btn-link pull-right " class="img-circle" style="font-size: large;">No account?</a>
+                        </div>
+                </div>
+        </div>
+    </div>
+</form>
+{% endblock content2 %}

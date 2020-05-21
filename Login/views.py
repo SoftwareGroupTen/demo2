@@ -166,11 +166,17 @@ def coursedetail(request,id):
     context = {'mycourse':mycourse,'sc':sc,'hw':hw}
     return render(request,'Login/coursedetail.html',context)
 
-#删除课程
+#删除课程(老师)
 def coursedelete(request,id):
     target = course.objects.get(id=id)
     target.delete()
     messages.info(request,"已删除此课程")
+    return redirect('Login:PAGE')
+#退出课程（学生）
+def courserejust(request,id):
+    target = stucourse.objects.get(thecourse_id=id)
+    target.delete()
+    messages.info(request,"已退出此课程")
     return redirect('Login:PAGE')
 
 #为某门课添加助教（需要老师的权限）

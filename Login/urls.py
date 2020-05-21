@@ -14,6 +14,7 @@ urlpatterns = [
     path('homeworkdetail/<int:id>',views.homeworkdetail, name = 'homeworkdetail'),
     path('makecomments/', views.makecomments, name = 'makecomments'),
     path('coursedelete/<int:id>',views.coursedelete, name = 'coursedelete'),
+    path('courserejust/<int:id>',views.courserejust, name = 'courserejust'),
     path('addassistant/<int:id>',views.addassistant, name = 'addassistant'),
     path('upload/<int:id>/',views.upload,name = 'upload'),
     path('user-center/', views.usercenter, name = 'usercenter'),

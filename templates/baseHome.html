@@ -22,10 +22,62 @@
 background-attachment: fixed;">
     <!-- 引入导航栏 -->
     {% include 'headerHome.html' %}
-    
-    <!-- 预留具体页面的位置 -->
-    {% block content %}{% endblock content %}
 
+    {% if user.is_authenticated %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+    
+    <div class="container-fluid">
+        <div class="row">
+                <!-- 左目录 -->
+                <div class="col-3 col-lg-2 card d-none d-md-block" id="left-sidebar">
+                    <div class="sidebar" id="sidebar">
+                        <div class="sidebar__inner">
+                            <div class="card-body" style="padding: 20px 0 0 0; overflow: auto;">
+                
+                                
+                <div class="card-text" style="overflow: hidden">
+                    <p class="mb-0">
+                        <a href = "{% url 'Login:PAGE' %}" style="color: #b8b8b8;"
+                        class="no-underline hvr-forward">返回主页</a>
+                    </p>
+                    
+                    <p class="mb-0">
+                        <a href="{% url 'Login:usercenter' %}" style="color: #b8b8b8;"
+                        class="no-underline hvr-forward">个人中心</a>
+                    </p>
+
+                    <p class="mb-0">
+                        <a href="{% url 'Login:editprofile' %}" style="color: #b8b8b8;"
+                        class="no-underline hvr-forward">编辑个人信息</a>
+                    </p>
+                    
+                    <p class="mb-0">
+                        <a href="{% url 'Login:changepassword' %}" style="color: #b8b8b8;"
+                        class="no-underline hvr-forward">修改密码</a>
+                    </p>
+                </div>
+                            </div>        
+                        </div>
+                    </div>
+                </div>
+                <!--左目录结束-->
+    
+                <!-- 正文 -->
+                <div class="col-lg-8 col-md-9" id="main" >
+                <!-- 预留具体页面的位置 -->
+                {% block content %}{% endblock content %}
+                </div>
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <!-- 预留具体页面的位置 -->
+    {% block content2 %}{% endblock content2 %}
+    {% endif %}
     <!-- 引入注脚 -->
     {% include 'footer.html' %}
     

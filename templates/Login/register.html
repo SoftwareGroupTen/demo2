@@ -7,6 +7,10 @@
     登录页面
 {% endblock title %}
 
+<!--加入滚动条-->
+<div style="position:absolute; height:400px; overflow:auto">
+</div>
+
 <!-- 写入 baseReg.html 中定义的 content -->
 {% block content2 %}
 <div class="container">
@@ -17,9 +21,10 @@
                 {% csrf_token %}
                 <!-- 账号 -->
                 <div class="form-group col-md-4">
-                    <label for="id_username">用户名</label>
-                    <input type="text" class="form-control" name="username" maxlength="150" autofocus required id="id_username">
-                    <span class="helptext">必填。150个字符或者更少。包含字母，数字和仅有的@/./+/-/_符号。</span>
+                    <div class="col-4 alert alert-info">用户名:</div>
+                    <!--<label for="id_username">用户名:</label>-->
+                    <input type="text" class="form-control" name="username" placeholder="仅可包含字母，数字和@/./+/-/_符号。" maxlength="150" autofocus required id="id_username">
+                    <!--<span class="helptext">必填。150个字符或者更少。包含字母，数字和仅有的@/./+/-/_符号。</span>-->
                 </div>
                 
                 {% if registerform.errors.username %}
@@ -28,36 +33,40 @@
 
                 <!-- 密码 -->
                 <div class="form-group col-md-4">
-                    <label for="id_password1">密码</label>
+                    <div class="col-3 alert alert-info">密码:</div>
+                    <!--<label for="id_password1">密码:</label>-->
                     <input type="password" class="form-control"name="password1" required id="id_password1">
-                    <span class="helptext">
+                    <!--<span class="helptext">
                         <ul>
                             <li>你的密码不能与你的其他个人信息太相似。</li>
                             <li>你的密码必须包含至少 8 个字符。</li>
                             <li>你的密码不能是大家都爱用的常见密码。</li>
                             <li>你的密码不能全部为数字。</li>
                         </ul>
-                    </span>
+                    </span>-->
                 </div>
                 
                 {{ registerform.errors.password1 }}
 
                 <!-- 确认密码 -->
                 <div class="form-group col-md-4">
-                    <label for="id_password2">密码确认</label>
-                    <input type="password" class="form-control"name="password2" required id="id_password2">
-                    <span class="helptext">为了校验，请输入与上面相同的密码。</span>
+                    <div class="col-4 alert alert-info">密码确认:</div>
+                    <!--<label for="id_password2">密码确认:</label>-->
+                    <input type="password" class="form-control" placeholder="为了校验，请输入与上面相同的密码。" name="password2" required id="id_password2">
+                    <!--<span class="helptext">为了校验，请输入与上面相同的密码。</span>-->
                 </div>
                 
                 
                 <!-- 邮箱 -->
                 <div class="form-group col-md-4">
-                    <label for="id_email">电子邮件地址:</label> 
+                    <div class="col-5 alert alert-info">电子邮件地址:</div>
+                    <!--<label for="id_email">电子邮件地址:</label>--> 
                     <input type="email" class="form-control" name="email" maxlength="254" id="id_email">
                 </div>
                 
                 <div class="form-group col-md-4">
-                    <label for="id_nickname">昵称:</label> 
+                    <div class="col-3 alert alert-info">昵称:</div>
+                    <!--<label for="id_nickname">昵称:</label> -->
                     <input type="text" class="form-control" name="nickname" maxlength="50" id="id_nickname">
                 </div>
                 <!--
@@ -69,11 +78,13 @@
                 
                     
                 <div>
-                    <label for = "identity">身份:</label>
+                    <div><br></div>
+                    <div class="col-2 alert alert-info">请选择身份:</div>
+                    <!--<br><label for = "identity">请选择身份:</label>-->
                     <input type = "radio" name = "Identity" value = "学生">学生
                     <input type = "radio" name = "Identity" value = "助教">助教
                     <input type = "radio" name = "Identity" value = "老师">老师
-                <br>
+                    <br>
                 </div>
                 
                 <!-- 提交按钮 -->

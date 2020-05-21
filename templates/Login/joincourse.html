@@ -47,11 +47,13 @@
     <div class="row">
         <div class="col-12">
 
-    <h1>主页</h1>
-    {% if user.is_authenticated %}
-        <div class="col-2 alert alert-success">当前用户:{{ user.username }}</div>
-        <div class="col-2 alert alert-success">当前用户身份:{{ request.session.role }}</div>
-        <div class="col-3 alert alert-warning">您正在加入课程……</div>
+        <h1>主页</h1>
+        {% if user.is_authenticated %}
+            <div class="col-4 alert alert-success">当前用户:{{ user.username }}</div>
+            <div class="col-4 alert alert-success">当前用户身份:{{ request.session.role }}</div>
+            <div class="col-4 alert alert-warning">您正在加入课程……</div>
+        
+
         <div class="row">
             <div class="col-auto mr-auto">
                 <form class="form-inline" >

@@ -10,6 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('HomeworkPublish', '0006_auto_20200502_2011'),
+        ('upload', '0002_auto_20200505_1104')
     ]
 
     operations = [

@@ -56,51 +56,37 @@
                 </div>
                 <ul>
                     {% for c in mycourse %}
-                    <div class="col-8 mb-4">
+                    <div class="col-6 mb-4">
                         <!-- 卡片容器 -->
                         <div class="card h-100">
                         <div class="card-body">
+                            
                             <!-- 标题 -->
-                            <h4 class="mt-0">
+                            <h4 class="card-header">
                                 <a href="{% url 'Login:coursedetail' c.id %}"
                                    style="font-weight: bold; color: black;"
-                                   class="hvr-forward no-underline"
-                                >
+                                   class="hvr-forward no-underline">
                                      {{ c.courseName }}
                                 </a>
                             </h4>
 
-                            <!-- 文章标题的栏目 -->
-                            <div class="mb-2 ">
-                                
-                                    <a href="{% url 'Login:coursedetail' c.id %}"
-                                       role="button"
-                                       class="
-                                    btn
-                                    btn-sm
-                                    hvr-pop
-                                    
-                                    btn-outline-success
-                                    
-                                    "
-                                    >
-                                        详情
-                                    </a>
-                                    
-                                
-
-                                <!-- 标签 -->
-                                
-                                    <a class="badge badge-pill badge-light hvr-float-shadow"
+                            <!--课程简介-->
+                            <div class="card-body">
+                                <a class="badge badge-pill badge-light hvr-float-shadow"
                                        href='../../Login/persondetail?user={{ cteacherName }}'
                                        style="color: grey;">
                                     {{ c.teacherName }}
-                                    </a>
-                                    
-                                    
-                                
-                                </div>
+                                </a>
                             </div>
+
+                            <!--注脚-->
+                            <div class="card-footer">
+                                <a href="{% url 'Login:coursedetail' c.id %}"role="button"
+                                    class="btn btn-sm hvr-pop btn-outline-success">
+                                    详情
+                                </a>
+                            </div>                               
+                        </div>
                         </div>
                     </div>
                 

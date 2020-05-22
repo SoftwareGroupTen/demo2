@@ -153,10 +153,8 @@ def joincourse(request):
         courselist = stucourse.objects.filter(studentName=request.user.username)
         courseID = request.GET.get('ID')
         flag = False
-        for i in courselist:
-            if i.thecourse_id==courseID:
-                flag==True
-                break
+        if stucourse.objects.filter(studentName=request.user.username,thecourse_id=courseID):
+            flag = True
         if flag == False:
             joinCourse = stucourse()
             joinCourse.studentName = request.user.username

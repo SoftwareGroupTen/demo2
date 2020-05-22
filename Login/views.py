@@ -150,11 +150,21 @@ def joincourse(request):
         target =  course.objects.all()
     join = request.GET.get('join')
     if join:
-        joinCourse = stucourse()
-        joinCourse.studentName = request.user.username
+        courselist = stucourse.objects.filter(studentName=request.user.username)
         courseID = request.GET.get('ID')
-        joinCourse.thecourse = course.objects.get(id=courseID)
-        joinCourse.save()
+        flag = False
+        for i in courselist:
+            if i.thecourse_id==courseID:
+                flag==True
+                break
+        if flag == False:
+            joinCourse = stucourse()
+            joinCourse.studentName = request.user.username
+            joinCourse.thecourse = course.objects.get(id=courseID)
+            joinCourse.save()
+            messages.info(request,"加入成功")
+        else:
+            messages.info(request,"您已添加过此课程")
     context = {'search':search,'target':target}
     return render(request,"Login/joincourse.html",context)
 
@@ -174,8 +184,9 @@ def coursedelete(request,id):
     return redirect('Login:PAGE')
 #退出课程（学生）
 def courserejust(request,id):
-    target = stucourse.objects.get(thecourse_id=id)
-    target.delete()
+    target = stucourse.objects.filter(thecourse_id=id)
+    for item in target: 
+        item.delete()
     messages.info(request,"已退出此课程")
     return redirect('Login:PAGE')
 

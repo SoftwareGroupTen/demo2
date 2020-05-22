@@ -23,4 +23,4 @@ class uploadModelTests(TestCase):
             homework = newhomework,
         )
 
-        self.assertIs(newuserfile.returnhomeworkcourseNum, 1)
+        self.assertIs(newuserfile.returnhomeworkcourseNum(), 1)

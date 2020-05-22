@@ -48,13 +48,14 @@
         <br>
         <div class="container">
             <div class="row clearfix">
-                <div class="col-md-9 column">   
+                <div class="col-md-12 column">   
             {% if request.session.role == '老师' %}
                 <br>
                 <div class="col-6 alert alert-success">我的课程:
                     <a class="btn btn-primary" style="color:white" href ="{% url 'Login:addcourse' %}">添加课程</a>
                 </div>
-                <ul>
+
+                <div class="row mt-2">
                     {% for c in mycourse %}
                     <div class="col-6 mb-4">
                         <!-- 卡片容器 -->
@@ -62,13 +63,13 @@
                         <div class="card-body">
                             
                             <!-- 标题 -->
-                            <h4 class="card-header">
+                            <h3 class="card-header">
                                 <a href="{% url 'Login:coursedetail' c.id %}"
                                    style="font-weight: bold; color: black;"
                                    class="hvr-forward no-underline">
                                      {{ c.courseName }}
                                 </a>
-                            </h4>
+                            </h3>
 
                             <!--课程简介-->
                             <div class="card-body">
@@ -90,7 +91,7 @@
                         </div>
                     </div>
                     {% endfor %} 
-                </ul>
+                </div>
             {% endif %}
             
             {% if request.session.role == '学生' %}
@@ -98,20 +99,21 @@
                 <div class="col-8 alert alert-success">我的课程:
                     <a class="btn btn-primary" style="color:white" href ="{% url 'Login:joincourse' %}">寻找课程</a>
                 </div>
-                <ul>
-                {% for c in sc %}
+
+                <div class="row mt-2">
+                    {% for c in sc %}
                     <div class="col-6 mb-4">
                         <!-- 卡片容器 -->
                         <div class="card h-100">
                                 
                             <!-- 标题 -->
-                            <h4 class="card-header">
+                            <h3 class="card-header">
                                 <a href="{% url 'Login:coursedetail' c.thecourse.id %}"
                                     style="font-weight: bold; color: black;"
                                     class="hvr-forward no-underline">
                                     {{ c.thecourse.courseName }}
                                 </a>
-                            </h4>
+                            </h3>
                                     
                             <div class="card-body">
                                 <a class="badge badge-pill badge-light hvr-float-shadow"
@@ -132,10 +134,9 @@
                                     
                                     
                         </div>
-                    </div>
-                        
+                    </div>                        
                 {% endfor %}
-                </ul>   
+                </div> 
             {% endif %}
             
             {% if request.session.role == '助教' %}
@@ -149,13 +150,13 @@
                             <!-- 卡片容器 -->
                             <div class="card h-100">
                                 <!--标题-->
-                                <h4 class="card-header">
+                                <h3 class="card-header">
                                     <a href="{% url 'Login:coursedetail' c.thecourse.id %}"
                                        style="font-weight: bold; color: black;"
                                        class="hvr-forward no-underline">
                                         {{ c.thecourse.courseName }}
                                     </a>
-                                </h4>
+                                </h3>
                                 
                                 <div class="card-body"> 
                                     <a class="badge badge-pill badge-light hvr-float-shadow"
@@ -167,13 +168,12 @@
 
                                 <!-- 文章标题的栏目 -->
                                 <div class="card-footer">
-                                        <a href="{% url 'Login:coursedetail' c.thecourse.id %}"
-                                           role="button"
-                                           class="btn btn-sm hvr-pop btn-outline-success">
-                                            详情
-                                        </a>
-                                </div>  
-                                
+                                    <a href="{% url 'Login:coursedetail' c.thecourse.id %}"
+                                        role="button"
+                                        class="btn btn-sm hvr-pop btn-outline-success">
+                                    详情
+                                    </a>
+                                </div>                                  
                             </div>
                         </div>
                         {% endfor %} 

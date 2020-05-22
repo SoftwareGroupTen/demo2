@@ -78,7 +78,7 @@
                         function confirm_delete() {
                             layer.open({
                                 title: "来自本网页的提示",
-                                content: "确认删除此课程吗？",
+                                content: "确认退出此课程吗？",
                                 yes: function(index, layero) {
                                     location.href="{% url 'Login:courserejust' mycourse.id %}"
                                 },

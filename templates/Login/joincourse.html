@@ -49,8 +49,6 @@
 
         <h1>主页</h1>
         {% if user.is_authenticated %}
-            <div class="col-4 alert alert-success">当前用户:{{ user.username }}</div>
-            <div class="col-4 alert alert-success">当前用户身份:{{ request.session.role }}</div>
             <div class="col-4 alert alert-warning">您正在加入课程……</div>
         
 

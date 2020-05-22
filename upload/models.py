@@ -13,3 +13,6 @@ class userfile(models.Model):
     #所以是用upload_to来指定文件存放的前缀路径
     def __str__(self):
         return self.homework.Homework_Text
+    
+    def returnhomeworkcourseNum(self):
+        return self.homework.courseNum

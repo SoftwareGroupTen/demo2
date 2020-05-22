@@ -20,4 +20,4 @@ class CommmentModelTests(TestCase):
             body = 'test',
             created=timezone.now()+datetime.timedelta(days=30),
             )
-        self.assertIs(comment.was_created_recently(), False)
+        self.assertIs(comment.was_created_recently(), True)

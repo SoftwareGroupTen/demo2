@@ -19,3 +19,11 @@ class Homework(models.Model):
     
     def __str__(self):
         return self.Homework_title
+    
+    def was_created_recently(self):
+        # 若评论是"最近"发表的，则返回 True
+        diff = timezone.now() - self.Pub_time
+        if diff.days <= 0 and diff.seconds < 60:
+            return True
+        else:
+            return False

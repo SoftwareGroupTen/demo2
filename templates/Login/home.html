@@ -51,7 +51,7 @@
                 <div class="col-md-12 column">   
             {% if request.session.role == '老师' %}
                 <br>
-                <div class="col-6 alert alert-success">我的课程:
+                <div class="col-4 alert alert-success">我的课程:
                     <a class="btn btn-primary" style="color:white" href ="{% url 'Login:addcourse' %}">添加课程</a>
                 </div>
 
@@ -102,7 +102,7 @@
 
                 <div class="row mt-2">
                     {% for c in sc %}
-                    <div class="col-6 mb-4">
+                    <div class="col-3 mb-4">
                         <!-- 卡片容器 -->
                         <div class="card h-100">
                                 
@@ -117,7 +117,7 @@
                                     
                             <div class="card-body">
                                 <a class="badge badge-pill badge-light hvr-float-shadow"
-                                    href='../../Login/persondetail?user={{ c.thecourse.teacherName }}'
+                                    href='../../persondetail?user={{ c.thecourse.teacherName }}'
                                     style="color: grey;">
                                     {{ c.thecourse.teacherName }}
                                 </a>
@@ -146,7 +146,7 @@
                 <div class="container">
                     <div class="row mt-2">
                         {% for c in ac %}
-                        <div class="col-6 mb-4">
+                        <div class="col-4 mb-4">
                             <!-- 卡片容器 -->
                             <div class="card h-100">
                                 <!--标题-->
@@ -253,42 +253,3 @@
     {% endfor %}                    
 {% endif %}
 {% endblock content %}
-
-{% block content2 %}
-<form action = "" method = "POST">
-    {% csrf_token %}
-    {{ ERROR }}
-    <div class="container">
-        <div class="form row">
-                <div class="col-md-12">
-                        <h3 style="text-align: center;">Login to your account</h3>
-                        <!-- 账号 -->
-                        <div class="form-group">
-                            <i class="fa fa-user fa-lg"></i>
-                            <input class="form-control required" type="text" placeholder="请输入用户名" name="username" autofocus="autofocus">
-                        </div>
-                        
-                        <!-- 密码 -->
-                        <div class="form-group">
-                            <i class="fa fa-lock fa-lg"></i>
-                            <input class="form-control required" type="password" placeholder="请输入密码" name="password">
-                        </div>
-                        
-                        <!-- 验证码 -->
-                        <div class="form-group">
-                            {{ loginform.VerificationCode }}
-                            {{ loginform.errors.VerificationCode }}
-                        </div>
-                                            
-                        <!-- 提交按钮 -->
-                        <div class="form-group">
-                            <button type = "submit" class = "btn btn-primary btn-block btn-success">登录</button>   
-                        </div>
-                        <div class="form-group">
-                            <a href="{% url 'Login:Register' %}" role="button" class="btn btn-link pull-right " class="img-circle" style="font-size: large;">No account?</a>
-                        </div>
-                </div>
-        </div>
-    </div>
-</form>
-{% endblock content2 %}

@@ -164,7 +164,7 @@ def joincourse(request):
             joinCourse.save()
             messages.info(request,"加入成功")
         else:
-            messages.info(request,"您已添加过此课程")
+            messages.error(request,"您已添加过此课程")
     context = {'search':search,'target':target}
     return render(request,"Login/joincourse.html",context)
 
@@ -187,7 +187,7 @@ def courserejust(request,id):
     target = stucourse.objects.filter(thecourse_id=id)
     for item in target: 
         item.delete()
-    messages.info(request,"已退出此课程")
+    messages.error(request,"已退出此课程")
     return redirect('Login:PAGE')
 
 #为某门课添加助教（需要老师的权限）

@@ -28,9 +28,11 @@
                 
                 <!-- 用户名 -->
                 <div class="form-group col-md-4">
-                    <label for="id_username">用户名:</label>
+                    <div class="col-6 alert alert-info">用户名:</div>
+                    <!--<label for="id_username">用户名:</label>-->
+                    
                     <input type="text" class="form-control" name="username" value="{{USER.username}}" maxlength="150" required id="id_username">
-                    <span class="helptext">必填。150个字符或者更少。包含字母，数字和仅有的@/./+/-/_符号。</span>
+                    <!--<span class="helptext">150个字符或者更少。仅可包含字母，数字和@/./+/-/_符号。</span>-->
                 </div>
                 <!--
                 <p>
@@ -42,7 +44,9 @@
                 
                 <!-- 邮箱 -->
                 <div class="form-group col-md-4">
-                    <label for="id_email">电子邮件地址:</label> 
+                    <div class="col-9 alert alert-info">电子邮件地址:</div>
+                    <!--<label for="id_email">电子邮件地址:</label> -->
+                    
                     <input type="email" class="form-control" name="email" value="{{USER.email}}" maxlength="254" id="id_email">
                 </div>
                 <!--
@@ -53,7 +57,9 @@
                 -->
 
                 <div class="form-group col-md-4">
-                    <label for="id_nickname">昵称:</label> 
+                    <div class="col-5 alert alert-info">昵称:</div>
+                    <!--<label for="id_nickname">昵称:</label>-->
+                     
                     <input type="text" class="form-control" name="nickname" maxlength="50" id="id_nickname" value="{{USER.normaluserform.nickname}}" />
                 </div>
                 <!--
@@ -64,7 +70,10 @@
                 -->
                 
                 <div>
-                    <label for="id_Identity">身份:</label> 
+                    <div><br></div>
+                    <div class="col-3 alert alert-info">请选择身份:</div>
+                    <!--<label for="id_Identity">身份:</label> -->
+                    
                     <input type = "radio" name = "Identity" value = "学生">学生
                     <input type = "radio" name = "Identity" value = "助教">助教
                     <input type = "radio" name = "Identity" value = "老师">老师

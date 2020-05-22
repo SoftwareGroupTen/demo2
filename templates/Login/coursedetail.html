@@ -72,7 +72,19 @@
                     </script>            
                 {% endif %}
                 {% if request.session.role == '学生' %}
-                    <a href="{% url 'Login:checkcomments' mycourse.id  %}" class="btn btn-primary">查看成绩</a>           
+                    <a href="{% url 'Login:checkcomments' mycourse.id  %}" class="btn btn-primary">查看成绩</a>
+                    <a href="#" onclick="confirm_delete()" class="btn btn-primary">退出此课程</a>
+                    <script>
+                        function confirm_delete() {
+                            layer.open({
+                                title: "来自本网页的提示",
+                                content: "确认退出此课程吗？",
+                                yes: function(index, layero) {
+                                    location.href="{% url 'Login:courserejust' mycourse.id %}"
+                                },
+                            })
+                        }
+                    </script>           
                 {% endif %}
                 <div><br></div>
                 <div class="col-3 alert alert-warning">参课学生：</div>
@@ -100,10 +112,11 @@
                                 <!-- 注脚 -->
                                 <div class="card-footer">
                                     <a href ="{% url 'Login:homeworkdetail' Homework.id %}" class="btn btn-primary">详情</a>
-                                    
+                                    <!--
                                     {% if request.session.role == '学生' %}
                                         <a href ="{% url 'Login:upload' Homework.id %}" class="btn btn-primary">提交此作业</a>
                                     {% endif %}
+                                    -->
                                 </div>
                                 <p>                                
                                 

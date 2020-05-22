@@ -21,7 +21,7 @@ import projectTen.settings
 import notifications.urls
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('Login/', include('Login.urls',namespace='Login')),
+    path('', include('Login.urls',namespace='Login')),
     path('',include('HomeworkPublish.urls',namespace='HomeworkPublish')),
     path('captcha/', include('captcha.urls')),
     path('comment/', include('comment.urls', namespace='comment')),

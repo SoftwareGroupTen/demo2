@@ -112,10 +112,10 @@
                         <!-- 卡片容器 -->
                         <div class="card h-100">
                             <!-- 标题 -->
-                            <h4 class="card-header">序号：{{targetfile.id}}</h4>
+                            <h4 class="card-header">课程：</h4>
                             <!-- 摘要 -->
                             <div class="card-body">
-                                <p class="card-text">课程编号{{targetfile.courseNum }}</p>
+                                <p class="card-text">课程编号：{{targetfile.courseNum }}</p>
                             </div>
                             <!-- 摘要 -->
                             <div class="card-body">
@@ -136,7 +136,7 @@
             </ul>
             <hr>        
         {% else %}
-            <h4>暂无<span style="color: red">"{{ search }}"</span>有关的文件。</h4>
+            <h4>暂无<span style="color: red">"{{ search }}"</span>有关的课程。</h4>
             <hr>
         {% endif %}
     {% endif %}

@@ -117,7 +117,7 @@ def changepassword(require):
 # 作业详情与提交
 def homeworkdetail(request,id):
     homework = Homework.objects.get(id=id)
-    
+    #添加markdown语法
     #nowtime = timezone.now()
     homework.Homework_text = markdown.markdown(homework.Homework_text,
         extensions=[
@@ -126,6 +126,7 @@ def homeworkdetail(request,id):
         # 语法高亮扩展
         'markdown.extensions.codehilite',
         ])
+    #判断时间
     nowtime = datetime.datetime.now()
     date_str = homework.deadline_date
     time_str = homework.deadline_time
@@ -136,7 +137,7 @@ def homeworkdetail(request,id):
     time_tuple = time.strptime(time_str,time_fmt)
     hour, minute = date_tuple[3:5]
     deadline = datetime.datetime(year, month, day, hour, minute)
-
+    #上交作业
     uf=userfile()
     if request.method == "POST":
         uf.username = request.user.username
@@ -145,8 +146,11 @@ def homeworkdetail(request,id):
         uf.save()
         messages.info(request,"上传成功")
         #return HttpResponse('upload ok!')
-
-    context = {'homework':homework,'nowtime':nowtime,'deadline':deadline,'uf':uf}
+    #判断提交状态;
+    flag=False
+    if userfile.objects.filter(homework_id=id,username=request.user.username):
+        flag=True
+    context = {'homework':homework,'nowtime':nowtime,'deadline':deadline,'uf':uf,'flag':flag}
     return render(request,'Login/homeworkdetail.html',context)
 
 #增设课程（需要老师的权限）

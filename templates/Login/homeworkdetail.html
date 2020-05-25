@@ -99,9 +99,13 @@
                     {% if nowtime <= deadline %}
                         {% if request.session.role == '学生' %}
                         <!-- <a href ="{% url 'Login:upload' homework.id %}">提交此作业</a> -->
+                        {% if flag == False %}
                         <a role="button" class="btn btn-primary btn-lg submit_assignment_link " href="#" onclick="upload()">提交作业</a>
                         <a role="button" class="btn btn-primary btn-lg submit_assignment_link " href="#" onclick="cancel()">取消</a>
-
+                        {% else %}
+                        <a role="button" class="btn btn-primary btn-lg submit_assignment_link " href="#" onclick="upload()">重新提交作业</a>
+                        <a role="button" class="btn btn-primary btn-lg submit_assignment_link " href="#" onclick="cancel()">取消</a>
+                        {% endif %}
                         <div style="display: none;" id="submit_assignment" class="mt-4">
                             <form action="" method="post" enctype="multipart/form-data">
                                 {% csrf_token %}

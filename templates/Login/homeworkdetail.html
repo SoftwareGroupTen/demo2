@@ -18,7 +18,7 @@
 {% block style %}
     <style type="text/css">
         body{
-            font-size: 16px;
+            font-size: 20px;
         }
         .form{
             background: rgba(255,255,255,0.2);
@@ -41,18 +41,40 @@
     </style>
 {% endblock style %}
 
+{% block js %}
+    <script>
+        function upload(){
+            document.getElementById('submit_assignment').style.display='block';
+        }
+        function cancel(){
+            document.getElementById('submit_assignment').style.display='none';
+        }
+    </script>
+{% endblock js %}
+
 <!-- 写入 baseHome.html 中定义的 content -->
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-12">
             {% if user.is_authenticated %}
-                        <h2 class="col-12 mt-4 mb-4">{{ homework.Homework_title }}</h2>                    
+                    <h2 class="col-12 mt-4 mb-4">{{ homework.Homework_title }}</h2> 
+                    <hr>                   
 
-                    
                     <div class="col-8 alert alert-success">
-                    发布时间：{{ homework.Pub_time }}
-                    截止时间：{{ homework.deadline_date}} {{ homework.deadline_time}}
+                        <span><b>发布时间</b></span>
+                        <span>{{ homework.Pub_time }}</span>
+                        <span><b>截止时间</b></span>
+                        <span>{{ homework.deadline_date}} ,{{ homework.deadline_time}}之前</span>
+
+                    <div class="clear"></div>
+                    
+                    </div>
+                    <hr>
+
+                    <div class="col-12">
+                        <p>{{ homework.Homework_text|safe }}</p>
+                    </div>
                     
                     {% if request.session.role == '助教' %}
                     <td><a href='../makecomments?hwID={{homework.id}}' class="btn btn-primary">批改</a></td>
@@ -76,7 +98,42 @@
                     {% endif %}
                     {% if nowtime <= deadline %}
                         {% if request.session.role == '学生' %}
-                        <a href ="{% url 'Login:upload' homework.id %}">提交此作业</a>
+                        <!-- <a href ="{% url 'Login:upload' homework.id %}">提交此作业</a> -->
+                        <a role="button" class="btn btn-primary btn-lg submit_assignment_link " href="#" onclick="upload()">提交作业</a>
+                        <a role="button" class="btn btn-primary btn-lg submit_assignment_link " href="#" onclick="cancel()">取消</a>
+
+                        <div style="display: none;" id="submit_assignment" class="mt-4">
+                            <form action="" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="custom-file">
+                                    <p><input type="file" name="tttt" id="customFile" ></p>
+                                    <label class="custom-file-label" for="customFile">选择文件</label>
+                                </div>
+                                
+                                <input role="button" class="btn btn-outline-primary mt-4" type="submit" value="ok">
+                                {% if messages %}
+                                <ul class="messages">
+                                    {% for message in messages %}
+                                    {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                                        <script type="text/javascript">
+                                            function feedback() {
+                                                layer.open({
+                                                    title: "来自本网页的提示",
+                                                    content: "上传成功",
+                                                    end : function() {
+                                                        location.href='{% url "Login:coursedetail" uf.homework.courseNum %}'
+                                                    },
+                                            
+                                                })
+                                            }
+                                            window.onload = feedback;
+                                        </script>
+                                    {% endif %}
+                                    {% endfor %} 
+                                </ul>
+                                {% endif %}
+                            </form>
+                        </div>
                         {% endif %}
                     {% endif %}
 
@@ -85,10 +142,8 @@
                         <a>已超过截止时间</a>
                         {% endif %}
                     {% endif %}
-                    </div>
-                    <div class="col-12">
-                        <p>{{ homework.Homework_text|safe }}</p>
-                    </div>
+                    
+                    
 
                     
             
@@ -135,3 +190,4 @@
     </div>  
 </div>
 {% endblock content %}
+

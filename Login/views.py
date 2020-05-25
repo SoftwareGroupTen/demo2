@@ -114,17 +114,40 @@ def changepassword(require):
     Content = {'changepasswordForm':changepasswordForm, 'USER':require.user}
     return render(require, 'Login/change-password.html', Content)
 
-# 上传文件
-def upload(request,id):
+# 作业详情与提交
+def homeworkdetail(request,id):
+    homework = Homework.objects.get(id=id)
+    
+    #nowtime = timezone.now()
+    homework.Homework_text = markdown.markdown(homework.Homework_text,
+        extensions=[
+        # 包含 缩写、表格等常用扩展
+        'markdown.extensions.extra',
+        # 语法高亮扩展
+        'markdown.extensions.codehilite',
+        ])
+    nowtime = datetime.datetime.now()
+    date_str = homework.deadline_date
+    time_str = homework.deadline_time
+    date_fmt = '%Y-%m-%d'
+    time_fmt = '%H:%M'
+    date_tuple = time.strptime(date_str, date_fmt)
+    year, month, day = date_tuple[:3]
+    time_tuple = time.strptime(time_str,time_fmt)
+    hour, minute = date_tuple[3:5]
+    deadline = datetime.datetime(year, month, day, hour, minute)
+
     uf=userfile()
     if request.method == "POST":
         uf.username = request.user.username
-        uf.homework = Homework.objects.get(id=id)
+        uf.homework = homework
         uf.headImg = request.FILES.get('tttt',None)
         uf.save()
         messages.info(request,"上传成功")
         #return HttpResponse('upload ok!')
-    return render(request,'Login/upload.html',{'uf':uf})
+
+    context = {'homework':homework,'nowtime':nowtime,'deadline':deadline,'uf':uf}
+    return render(request,'Login/homeworkdetail.html',context)
 
 #增设课程（需要老师的权限）
 def addcourse(request):
@@ -200,31 +223,6 @@ def addassistant(request,id):
         #return HttpResponse('添加成功')
     return render(request,'Login/addassistant.html',{'Course':Course})
 
-#展示作业细节
-def homeworkdetail(request,id):
-    homework = Homework.objects.get(id=id)
-    
-    #nowtime = timezone.now()
-    homework.Homework_text = markdown.markdown(homework.Homework_text,
-        extensions=[
-        # 包含 缩写、表格等常用扩展
-        'markdown.extensions.extra',
-        # 语法高亮扩展
-        'markdown.extensions.codehilite',
-        ])
-    nowtime = datetime.datetime.now()
-    date_str = homework.deadline_date
-    time_str = homework.deadline_time
-    date_fmt = '%Y-%m-%d'
-    time_fmt = '%H:%M'
-    date_tuple = time.strptime(date_str, date_fmt)
-    year, month, day = date_tuple[:3]
-    time_tuple = time.strptime(time_str,time_fmt)
-    hour, minute = date_tuple[3:5]
-    deadline = datetime.datetime(year, month, day, hour, minute)
-    
-    context = {'homework':homework,'nowtime':nowtime,'deadline':deadline}
-    return render(request,'Login/homeworkdetail.html',context)
 
 #展示需要评论的列表
 def makecomments(request):

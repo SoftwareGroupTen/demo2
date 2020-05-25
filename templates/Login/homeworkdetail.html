@@ -61,12 +61,20 @@
                     <h2 class="col-12 mt-4 mb-4">{{ homework.Homework_title }}</h2> 
                     <hr>                   
 
-                    <div class="col-8 alert alert-success">
-                        <span><b>发布时间</b></span>
+                    <div class="col-10 alert alert-success">
+                        <span><b>发布时间:</b></span>
                         <span>{{ homework.Pub_time }}</span>
-                        <span><b>截止时间</b></span>
+                        <span><b>截止时间:</b></span>
                         <span>{{ homework.deadline_date}} ,{{ homework.deadline_time}}之前</span>
+                        {% if request.session.role == '学生' %}
+                        <span><b>提交状态:</b></span>
+                        {% if flag == False %}
+                        <span>未提交</span>
+                        {% else %}
+                        <span>已提交</span>
+                        {% endif %}
 
+                        {% endif %}
                     <div class="clear"></div>
                     
                     </div>
